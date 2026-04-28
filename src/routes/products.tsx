@@ -5,9 +5,16 @@ export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
       { title: "Products — Full Solution Beauty Range" },
-      { name: "description", content: "Skincare, haircare, body, cosmetics and grooming products formulated and manufactured for retail partners." },
+      {
+        name: "description",
+        content:
+          "Skincare, haircare, body, cosmetics and grooming products formulated and manufactured for retail partners.",
+      },
       { property: "og:title", content: "Products — Full Solution Beauty Range" },
-      { property: "og:description", content: "Explore the Full Solution beauty range, ready for retail." },
+      {
+        property: "og:description",
+        content: "Explore the Full Solution beauty range, ready for retail.",
+      },
       { property: "og:image", content: productImg },
       { name: "twitter:image", content: productImg },
     ],
@@ -73,10 +80,9 @@ function ProductsPage() {
           <span className="italic text-gold-gradient">retail-ready</span>.
         </h1>
         <p className="mt-6 max-w-2xl text-muted-foreground leading-relaxed">
-          Every product below is formulated in our laboratory, manufactured on
-          our lines, and packaged for direct delivery to your distribution
-          centre. Custom MOQs, private label and contract manufacturing
-          available.
+          Every product below is formulated in our laboratory, manufactured on our lines, and
+          packaged for direct delivery to your distribution centre. Custom MOQs, private label and
+          contract manufacturing available.
         </p>
       </section>
 

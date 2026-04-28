@@ -1,1 +1,4 @@
 /*  /aura-beauty-hub/index.html  200
+
+# SPA fallback - all routes serve index.html for client-side routing
+/* /index.html 200

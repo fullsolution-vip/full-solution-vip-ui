@@ -5,9 +5,16 @@ export const Route = createFileRoute("/wholesale")({
   head: () => ({
     meta: [
       { title: "Wholesale & Private Label — Full Solution" },
-      { name: "description", content: "Open a wholesale account or commission a private-label beauty range with Full Solution." },
+      {
+        name: "description",
+        content:
+          "Open a wholesale account or commission a private-label beauty range with Full Solution.",
+      },
       { property: "og:title", content: "Wholesale & Private Label — Full Solution" },
-      { property: "og:description", content: "Margins, MOQs and turnkey private label for retail partners." },
+      {
+        property: "og:description",
+        content: "Margins, MOQs and turnkey private label for retail partners.",
+      },
     ],
   }),
   component: WholesalePage,
@@ -19,14 +26,12 @@ function WholesalePage() {
       <section className="container-page py-20 md:py-28">
         <p className="eyebrow">For retail buyers</p>
         <h1 className="mt-4 font-serif text-5xl md:text-7xl max-w-4xl leading-[1.02]">
-          Wholesale &{" "}
-          <span className="italic text-gold-gradient">private label</span>,
-          built around your category.
+          Wholesale & <span className="italic text-gold-gradient">private label</span>, built around
+          your category.
         </h1>
         <p className="mt-6 max-w-2xl text-muted-foreground leading-relaxed">
-          Whether you're listing our existing range or briefing a new line under
-          your own brand, we structure every partnership for predictable margin
-          and on-time delivery.
+          Whether you're listing our existing range or briefing a new line under your own brand, we
+          structure every partnership for predictable margin and on-time delivery.
         </p>
       </section>
 
@@ -35,7 +40,11 @@ function WholesalePage() {
           {
             t: "Stockist",
             d: "List the Full Solution range in your stores.",
-            f: ["Trade catalogue & price list", "Standard MOQs from 144 units", "Marketing assets included"],
+            f: [
+              "Trade catalogue & price list",
+              "Standard MOQs from 144 units",
+              "Marketing assets included",
+            ],
           },
           {
             t: "Private Label",
@@ -64,7 +73,12 @@ function WholesalePage() {
               </span>
             )}
             <h2 className="font-serif text-3xl">{p.t}</h2>
-            <p className={"mt-2 text-sm " + (p.featured ? "text-primary-foreground/70" : "text-muted-foreground")}>
+            <p
+              className={
+                "mt-2 text-sm " +
+                (p.featured ? "text-primary-foreground/70" : "text-muted-foreground")
+              }
+            >
               {p.d}
             </p>
             <ul className="mt-7 space-y-3 text-sm">
@@ -86,8 +100,8 @@ function WholesalePage() {
               <p className="eyebrow">Request the trade pack</p>
               <h2 className="mt-3 font-serif text-4xl">Let's talk listings.</h2>
               <p className="mt-4 text-muted-foreground">
-                Tell us a little about your business and we'll send our trade
-                catalogue, margins, and a sample kit within 48 hours.
+                Tell us a little about your business and we'll send our trade catalogue, margins,
+                and a sample kit within 48 hours.
               </p>
             </div>
             <form

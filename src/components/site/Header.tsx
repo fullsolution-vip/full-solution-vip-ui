@@ -10,6 +10,7 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/wholesale", label: "Wholesale" },
   { to: "/contact", label: "Contact" },
+  { to: "/chat", label: "Chat" },
 ] as const;
 
 export function Header() {

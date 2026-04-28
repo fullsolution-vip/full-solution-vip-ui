@@ -6,9 +6,16 @@ export const Route = createFileRoute("/science")({
   head: () => ({
     meta: [
       { title: "Our Science — Full Solution" },
-      { name: "description", content: "Dermatologists, cosmetic chemists and academic researchers formulate every Full Solution product." },
+      {
+        name: "description",
+        content:
+          "Dermatologists, cosmetic chemists and academic researchers formulate every Full Solution product.",
+      },
       { property: "og:title", content: "Our Science — Full Solution" },
-      { property: "og:description", content: "Inside the lab where Full Solution products are made." },
+      {
+        property: "og:description",
+        content: "Inside the lab where Full Solution products are made.",
+      },
       { property: "og:image", content: labImg },
       { name: "twitter:image", content: labImg },
     ],
@@ -23,16 +30,14 @@ function SciencePage() {
         <div>
           <p className="eyebrow">The laboratory</p>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl leading-[1.05]">
-            Where{" "}
-            <span className="italic text-gold-gradient">dermatology</span>{" "}
-            meets the retail shelf.
+            Where <span className="italic text-gold-gradient">dermatology</span> meets the retail
+            shelf.
           </h1>
           <p className="mt-6 text-muted-foreground leading-relaxed">
-            Full Solution operates a dedicated cosmetic R&D facility staffed by
-            licensed dermatologists, university-trained cosmetic chemists and
-            visiting academic researchers. Every brief — whether private label
-            or in-house — is treated as a clinical project from concept to
-            certificate of analysis.
+            Full Solution operates a dedicated cosmetic R&D facility staffed by licensed
+            dermatologists, university-trained cosmetic chemists and visiting academic researchers.
+            Every brief — whether private label or in-house — is treated as a clinical project from
+            concept to certificate of analysis.
           </p>
         </div>
         <img
@@ -48,10 +53,26 @@ function SciencePage() {
       <section className="container-page py-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { i: Microscope, t: "Clinical evaluation", d: "Patch testing, irritation profiling and consumer panels." },
-            { i: GraduationCap, t: "Academic partners", d: "Collaborations with leading university chemistry departments." },
-            { i: FlaskConical, t: "Active sourcing", d: "Pharmaceutical-grade raw materials, fully traceable." },
-            { i: Beaker, t: "Stability testing", d: "Accelerated and real-time stability across climate zones." },
+            {
+              i: Microscope,
+              t: "Clinical evaluation",
+              d: "Patch testing, irritation profiling and consumer panels.",
+            },
+            {
+              i: GraduationCap,
+              t: "Academic partners",
+              d: "Collaborations with leading university chemistry departments.",
+            },
+            {
+              i: FlaskConical,
+              t: "Active sourcing",
+              d: "Pharmaceutical-grade raw materials, fully traceable.",
+            },
+            {
+              i: Beaker,
+              t: "Stability testing",
+              d: "Accelerated and real-time stability across climate zones.",
+            },
           ].map(({ i: Icon, t, d }) => (
             <div key={t} className="rounded-2xl border border-border bg-card p-7">
               <Icon className="size-5 text-gold mb-5" />
@@ -63,7 +84,9 @@ function SciencePage() {
       </section>
 
       <section className="container-page py-20">
-        <h2 className="font-serif text-4xl md:text-5xl max-w-3xl">From brief to bottle in 90 days.</h2>
+        <h2 className="font-serif text-4xl md:text-5xl max-w-3xl">
+          From brief to bottle in 90 days.
+        </h2>
         <ol className="mt-12 grid md:grid-cols-2 lg:grid-cols-5 gap-4">
           {[
             { t: "Brief & benchmark", d: "Define target consumer, claim and price." },

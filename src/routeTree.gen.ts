@@ -10,15 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WholesaleRouteImport } from './routes/wholesale'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ScienceRouteImport } from './routes/science'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as IngredientsRouteImport } from './routes/ingredients'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ChatRouteImport } from './routes/chat'
+import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WholesaleRoute = WholesaleRouteImport.update({
   id: '/wholesale',
   path: '/wholesale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScienceRoute = ScienceRouteImport.update({
@@ -31,9 +42,34 @@ const ProductsRoute = ProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IngredientsRoute = IngredientsRouteImport.update({
+  id: '/ingredients',
+  path: '/ingredients',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -50,26 +86,44 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/categories': typeof CategoriesRoute
+  '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
+  '/ingredients': typeof IngredientsRoute
+  '/login': typeof LoginRoute
   '/products': typeof ProductsRoute
   '/science': typeof ScienceRoute
+  '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/categories': typeof CategoriesRoute
+  '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
+  '/ingredients': typeof IngredientsRoute
+  '/login': typeof LoginRoute
   '/products': typeof ProductsRoute
   '/science': typeof ScienceRoute
+  '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/categories': typeof CategoriesRoute
+  '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
+  '/ingredients': typeof IngredientsRoute
+  '/login': typeof LoginRoute
   '/products': typeof ProductsRoute
   '/science': typeof ScienceRoute
+  '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
 }
 export interface FileRouteTypes {
@@ -77,28 +131,58 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/account'
+    | '/categories'
+    | '/chat'
     | '/contact'
+    | '/ingredients'
+    | '/login'
     | '/products'
     | '/science'
+    | '/signup'
     | '/wholesale'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/products' | '/science' | '/wholesale'
+  to:
+    | '/'
+    | '/about'
+    | '/account'
+    | '/categories'
+    | '/chat'
+    | '/contact'
+    | '/ingredients'
+    | '/login'
+    | '/products'
+    | '/science'
+    | '/signup'
+    | '/wholesale'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/account'
+    | '/categories'
+    | '/chat'
     | '/contact'
+    | '/ingredients'
+    | '/login'
     | '/products'
     | '/science'
+    | '/signup'
     | '/wholesale'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
+  CategoriesRoute: typeof CategoriesRoute
+  ChatRoute: typeof ChatRoute
   ContactRoute: typeof ContactRoute
+  IngredientsRoute: typeof IngredientsRoute
+  LoginRoute: typeof LoginRoute
   ProductsRoute: typeof ProductsRoute
   ScienceRoute: typeof ScienceRoute
+  SignupRoute: typeof SignupRoute
   WholesaleRoute: typeof WholesaleRoute
 }
 
@@ -109,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/wholesale'
       fullPath: '/wholesale'
       preLoaderRoute: typeof WholesaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/science': {
@@ -125,11 +216,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ingredients': {
+      id: '/ingredients'
+      path: '/ingredients'
+      fullPath: '/ingredients'
+      preLoaderRoute: typeof IngredientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -152,9 +278,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
+  CategoriesRoute: CategoriesRoute,
+  ChatRoute: ChatRoute,
   ContactRoute: ContactRoute,
+  IngredientsRoute: IngredientsRoute,
+  LoginRoute: LoginRoute,
   ProductsRoute: ProductsRoute,
   ScienceRoute: ScienceRoute,
+  SignupRoute: SignupRoute,
   WholesaleRoute: WholesaleRoute,
 }
 export const routeTree = rootRouteImport

@@ -5,9 +5,16 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Full Solution" },
-      { name: "description", content: "Full Solution is a South African beauty and personal-care manufacturer building products for the world's leading retailers." },
+      {
+        name: "description",
+        content:
+          "Full Solution is a South African beauty and personal-care manufacturer building products for the world's leading retailers.",
+      },
       { property: "og:title", content: "About — Full Solution" },
-      { property: "og:description", content: "Our story, our people, and our manufacturing capability." },
+      {
+        property: "og:description",
+        content: "Our story, our people, and our manufacturing capability.",
+      },
       { property: "og:image", content: mfgImg },
       { name: "twitter:image", content: mfgImg },
     ],
@@ -25,11 +32,10 @@ function AboutPage() {
           <span className="italic text-gold-gradient">made for the world</span>.
         </h1>
         <p className="mt-8 max-w-3xl text-lg text-muted-foreground leading-relaxed">
-          Full Solution was founded with a simple conviction: the next great
-          beauty brands would not come from licensing other people's formulas —
-          they would come from owning the science, the supply chain and the
-          shelf experience end to end. Today we partner with national retailers,
-          boutique chains and challenger brands to bring that conviction to life.
+          Full Solution was founded with a simple conviction: the next great beauty brands would not
+          come from licensing other people's formulas — they would come from owning the science, the
+          supply chain and the shelf experience end to end. Today we partner with national
+          retailers, boutique chains and challenger brands to bring that conviction to life.
         </p>
       </section>
 
@@ -46,9 +52,18 @@ function AboutPage() {
 
       <section className="container-page py-20 grid lg:grid-cols-3 gap-10">
         {[
-          { t: "Locally rooted", d: "Designed, formulated and manufactured in South Africa, employing scientists, technicians and packaging specialists." },
-          { t: "Globally minded", d: "Built to international cosmetic GMP standards, with documentation ready for export markets across Africa and beyond." },
-          { t: "Retailer obsessed", d: "Every decision — formula, packaging, palletisation — is designed to make life easier for the buyers we serve." },
+          {
+            t: "Locally rooted",
+            d: "Designed, formulated and manufactured in South Africa, employing scientists, technicians and packaging specialists.",
+          },
+          {
+            t: "Globally minded",
+            d: "Built to international cosmetic GMP standards, with documentation ready for export markets across Africa and beyond.",
+          },
+          {
+            t: "Retailer obsessed",
+            d: "Every decision — formula, packaging, palletisation — is designed to make life easier for the buyers we serve.",
+          },
         ].map((v) => (
           <div key={v.t}>
             <h3 className="font-serif text-3xl">{v.t}</h3>

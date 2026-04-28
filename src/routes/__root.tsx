@@ -3,6 +3,8 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { WhatsAppButton } from "@/components/site/WhatsAppButton";
+import { ChatWidget } from "@/components/chatbot/chat-widget";
 
 function NotFoundComponent() {
   return (
@@ -76,6 +78,8 @@ function RootComponent() {
         <Outlet />
       </main>
       <Footer />
+      <WhatsAppButton />
+      <ChatWidget />
     </div>
   );
 }

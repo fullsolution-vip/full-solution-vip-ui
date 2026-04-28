@@ -1,5 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, FlaskConical, Package, Globe2, ShieldCheck, Leaf } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  FlaskConical,
+  Package,
+  Globe2,
+  ShieldCheck,
+  Leaf,
+} from "lucide-react";
 import heroImage from "@/assets/hero-products.jpg";
 import labImage from "@/assets/science-lab.jpg";
 import rangeImage from "@/assets/product-range.jpg";
@@ -33,7 +41,10 @@ function HomePage() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 gradient-warm" aria-hidden />
-        <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(circle_at_1px_1px,_var(--ink)_1px,_transparent_0)] [background-size:24px_24px]" aria-hidden />
+        <div
+          className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(circle_at_1px_1px,_var(--ink)_1px,_transparent_0)] [background-size:24px_24px]"
+          aria-hidden
+        />
 
         <div className="container-page relative grid lg:grid-cols-12 gap-10 lg:gap-16 pt-16 pb-20 lg:py-28 items-center">
           <div className="lg:col-span-6 animate-fade-up">
@@ -41,14 +52,13 @@ function HomePage() {
               <Sparkles className="size-3 text-gold" /> Beauty · Personal Care · Wholesale
             </p>
             <h1 className="mt-5 font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.02]">
-              Beauty,{" "}
-              <span className="italic text-gold-gradient">scientifically</span>{" "}
-              made for retail.
+              Beauty, <span className="italic text-gold-gradient">scientifically</span> made for
+              retail.
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl leading-relaxed">
-              We formulate, manufacture and package premium beauty products
-              locally — guided by dermatologists, chemists and academics — and
-              deliver them shelf-ready to retailers consumers trust.
+              We formulate, manufacture and package premium beauty products locally — guided by
+              dermatologists, chemists and academics — and deliver them shelf-ready to retailers
+              consumers trust.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -82,7 +92,10 @@ function HomePage() {
 
           <div className="lg:col-span-6 relative">
             <div className="relative animate-float">
-              <div className="absolute -inset-8 gradient-gold opacity-25 blur-3xl rounded-full" aria-hidden />
+              <div
+                className="absolute -inset-8 gradient-gold opacity-25 blur-3xl rounded-full"
+                aria-hidden
+              />
               <img
                 src={heroImage}
                 alt="Premium serum and cream from the Full Solution beauty range"
@@ -93,7 +106,9 @@ function HomePage() {
             </div>
             <div className="absolute -bottom-6 -left-6 hidden md:block bg-card border border-border rounded-2xl px-5 py-4 shadow-soft max-w-[220px]">
               <p className="eyebrow">Formulated by</p>
-              <p className="mt-1 font-serif text-lg leading-tight">Dermatologists & cosmetic scientists</p>
+              <p className="mt-1 font-serif text-lg leading-tight">
+                Dermatologists & cosmetic scientists
+              </p>
             </div>
           </div>
         </div>
@@ -109,18 +124,33 @@ function HomePage() {
             One partner, the entire pipeline.
           </h2>
           <p className="mt-5 text-muted-foreground leading-relaxed">
-            We compress the distance between the lab bench and the retail shelf
-            — so our partners can launch beauty lines faster, with fewer
-            suppliers and no quality compromise.
+            We compress the distance between the lab bench and the retail shelf — so our partners
+            can launch beauty lines faster, with fewer suppliers and no quality compromise.
           </p>
         </div>
 
         <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { i: FlaskConical, t: "Formulate", d: "Skin-doctor-led R&D, evidence-based actives, stability-tested." },
-            { i: Leaf, t: "Source", d: "Locally and globally sourced ingredients with full traceability." },
-            { i: Package, t: "Manufacture", d: "ISO-aligned production lines for serums, creams, hair and body." },
-            { i: Globe2, t: "Deliver", d: "Retail-ready packaging shipped on time to every distribution centre." },
+            {
+              i: FlaskConical,
+              t: "Formulate",
+              d: "Skin-doctor-led R&D, evidence-based actives, stability-tested.",
+            },
+            {
+              i: Leaf,
+              t: "Source",
+              d: "Locally and globally sourced ingredients with full traceability.",
+            },
+            {
+              i: Package,
+              t: "Manufacture",
+              d: "ISO-aligned production lines for serums, creams, hair and body.",
+            },
+            {
+              i: Globe2,
+              t: "Deliver",
+              d: "Retail-ready packaging shipped on time to every distribution centre.",
+            },
           ].map(({ i: Icon, t, d }) => (
             <div
               key={t}
@@ -155,10 +185,9 @@ function HomePage() {
               Backed by skin doctors, professors and cosmetic scientists.
             </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
-              Every Full Solution formula is built on peer-reviewed actives and
-              validated in our in-house laboratory. We collaborate with
-              dermatologists and university researchers to ensure each product
-              is safe, effective, and ready to earn shelf-space at the world's
+              Every Full Solution formula is built on peer-reviewed actives and validated in our
+              in-house laboratory. We collaborate with dermatologists and university researchers to
+              ensure each product is safe, effective, and ready to earn shelf-space at the world's
               most discerning retailers.
             </p>
             <ul className="mt-8 space-y-3 text-sm">
@@ -192,7 +221,10 @@ function HomePage() {
               Categories built for the modern retail floor.
             </h2>
           </div>
-          <Link to="/products" className="text-sm font-medium border-b border-foreground pb-1 self-start">
+          <Link
+            to="/products"
+            className="text-sm font-medium border-b border-foreground pb-1 self-start"
+          >
             View all categories →
           </Link>
         </div>
@@ -238,9 +270,8 @@ function HomePage() {
           <div className="relative">
             <p className="eyebrow">Partner voices</p>
             <blockquote className="mt-6 font-serif text-2xl md:text-4xl leading-snug max-w-3xl mx-auto">
-              "Full Solution has become the partner we measure others against —
-              they own every stage from formulation to the pallet on our dock,
-              and the quality never wavers."
+              "Full Solution has become the partner we measure others against — they own every stage
+              from formulation to the pallet on our dock, and the quality never wavers."
             </blockquote>
             <figcaption className="mt-8 text-sm text-muted-foreground">
               — Buying Director, National Retail Group
@@ -252,7 +283,10 @@ function HomePage() {
       {/* CTA */}
       <section className="container-page pb-24 lg:pb-32">
         <div className="relative rounded-3xl overflow-hidden bg-primary text-primary-foreground p-10 md:p-16">
-          <div className="absolute -top-40 -right-40 size-96 rounded-full gradient-gold opacity-30 blur-3xl" aria-hidden />
+          <div
+            className="absolute -top-40 -right-40 size-96 rounded-full gradient-gold opacity-30 blur-3xl"
+            aria-hidden
+          />
           <div className="relative grid md:grid-cols-2 gap-8 items-center">
             <div>
               <p className="eyebrow text-primary-foreground/60">Wholesale enquiries</p>
@@ -262,8 +296,8 @@ function HomePage() {
             </div>
             <div className="md:text-right">
               <p className="text-primary-foreground/75 max-w-md md:ml-auto">
-                Request our trade catalogue with margins, MOQs, and ready-to-list
-                product specifications.
+                Request our trade catalogue with margins, MOQs, and ready-to-list product
+                specifications.
               </p>
               <Link
                 to="/wholesale"

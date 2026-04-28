@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.com/1.0/vercel.json",
+  "framework": "vite",
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist",
+  "installCommand": "bun install",
+  "env": {
+    "DATABASE_URL": "@database-url",
+    "SUPABASE_URL": "@supabase-url",
+    "SUPABASE_ANON_KEY": "@supabase-anon-key"
+  }
+}
