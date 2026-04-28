@@ -1,9 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/login")({
-  component: LoginPage,
-});
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +7,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { getSupabase } from "@/lib/supabase";
+
+export const Route = createFileRoute("/login")({
+  component: LoginPage,
+});
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
@@ -28,7 +27,7 @@ export function LoginPage() {
 
     try {
       const supabase = getSupabase();
-      const { error: authError } = await supabase.auth.signInWithPassword({
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -37,7 +36,9 @@ export function LoginPage() {
         throw new Error(authError.message);
       }
 
-      window.location.href = "/account";
+      if (data.user) {
+        window.location.href = "/account";
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
@@ -68,7 +69,6 @@ export function LoginPage() {
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Google login failed");
-    } finally {
       setLoading(false);
     }
   };
