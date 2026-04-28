@@ -1,5 +1,6 @@
 import { retrievalService } from "./retrieval-service";
 import { cacheService } from "./cache-service";
+import { logger } from "@/lib/logger";
 
 const HF_API_KEY = process.env.HUGGINGFACE_API_KEY || "";
 const HF_MODEL = process.env.HUGGINGFACE_API_URL || "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3";
@@ -21,18 +22,24 @@ export class ChatService {
     userMessage: string,
     systemPrompt?: string
   ): Promise<ChatResponse> {
+    const startTime = Date.now();
+    logger.info("chat-service", `Generating response for session ${sessionId.slice(0, 8)}...`, { message: userMessage });
+    
     try {
       const cacheKey = cacheService.generateKey("response", sessionId, userMessage);
       const cached = await cacheService.getJSON<ChatResponse>(cacheKey);
       if (cached) {
+        logger.info("chat-service", "Returning cached response");
         return { ...cached, cached: true };
       }
 
+      logger.debug("chat-service", "Fetching relevant chunks and recent messages...");
       const [relevantChunks, recentMessages] = await Promise.all([
         retrievalService.similaritySearch(userMessage, 0.7, 5),
         retrievalService.getRecentMessages(sessionId, 10),
       ]);
 
+      logger.info("chat-service", `Found ${relevantChunks.length} relevant chunks`);
       const context = relevantChunks.map((c) => c.content).join("\n\n");
       const sources = [...new Set(relevantChunks.map((c) => c.sourceFile))];
 
@@ -53,7 +60,9 @@ ${context}`,
         { role: "user" as const, content: userMessage },
       ];
 
+      logger.debug("chat-service", "Calling LLM with context", { contextLength: context.length, messageCount: messages.length });
       const response = await this.callLLM(messages);
+      logger.info("chat-service", `LLM responded in ${Date.now() - startTime}ms`);
 
       await retrievalService.storeMessage(sessionId, "user", userMessage);
       await retrievalService.storeMessage(sessionId, "assistant", response);
@@ -65,9 +74,10 @@ ${context}`,
       };
 
       await cacheService.setJSON(cacheKey, result, 1800);
+      logger.info("chat-service", `Total response time: ${Date.now() - startTime}ms`);
       return result;
     } catch (error) {
-      console.error("Chat generation error:", error);
+      logger.error("chat-service", "Chat generation error:", error);
       return {
         message: "I apologize, but I'm having trouble processing your request right now. Please try again later.",
         sources: [],
@@ -78,6 +88,7 @@ ${context}`,
 
   private async callLLM(messages: ChatMessage[]): Promise<string> {
     const prompt = this.formatMessagesForLLM(messages);
+    logger.debug("chat-service", `Calling Hugging Face API: ${HF_MODEL.slice(0, 50)}...`);
 
     const response = await fetch(
       `${HF_MODEL}`,
@@ -100,6 +111,7 @@ ${context}`,
     );
 
     if (!response.ok) {
+      logger.error("chat-service", `LLM API error: ${response.statusText}`);
       throw new Error(`LLM API error: ${response.statusText}`);
     }
 

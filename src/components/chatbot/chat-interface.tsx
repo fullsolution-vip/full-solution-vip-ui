@@ -54,6 +54,10 @@ export function ChatInterface() {
       
       const data = await response.json();
       
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
       const assistantMessage: Message = {
         id: crypto.randomUUID(),
         role: "assistant",
@@ -64,6 +68,13 @@ export function ChatInterface() {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error("Chat error:", error);
+      const errorMessage: Message = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: "Sorry, there was an error processing your request. Please try again.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
