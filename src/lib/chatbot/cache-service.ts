@@ -25,12 +25,12 @@ export class CacheService {
         return;
       }
 
-      const Redis = module.default || module;
+      const RedisClass = module.default || module;
       
       // Try Redis Labs first (it's confirmed working)
       if (REDIS_URL) {
         console.log("🔴 Redis: Connecting to Redis Labs...");
-        this.redis = new Redis(REDIS_URL);
+        this.redis = new RedisClass(REDIS_URL);
         this.setupRedisEvents();
         return;
       }
@@ -39,7 +39,7 @@ export class CacheService {
       if (LANGCACHE_URL) {
         const password = LANGCACHE_API_KEY || "";
         console.log("🔴 Redis: Connecting to LangCache...");
-        this.redis = new Redis(LANGCACHE_URL, {
+        this.redis = new RedisClass(LANGCACHE_URL, {
           password: password || undefined,
           tls: LANGCACHE_URL.startsWith("rediss://") ? {} : undefined,
         });
@@ -65,39 +65,6 @@ export class CacheService {
     this.redis.on("error", (err) => {
       console.warn("Redis connection error (non-fatal):", err.message);
     });
-  }
-
-      const Redis = module.default || module;
-      
-      // Try LangCache first (uses API key as password)
-      if (LANGCACHE_URL) {
-        const password = LANGCACHE_API_KEY || "";
-        this.redis = new Redis(LANGCACHE_URL, {
-          password: password || undefined,
-          tls: LANGCACHE_URL.startsWith("rediss://") ? {} : undefined,
-        });
-        this.useLangcache = true;
-        console.log("✓ Redis: Connecting to LangCache...");
-      } else if (REDIS_URL) {
-        this.redis = new Redis(REDIS_URL);
-        console.log("✓ Redis: Connecting to Redis...");
-      } else {
-        console.log("⚠️ Redis: No URL configured");
-        return;
-      }
-
-      // Test connection
-      this.redis.on("connect", () => {
-        console.log("✓ Redis: Connected successfully");
-      });
-
-      this.redis.on("error", (err) => {
-        console.warn("Redis connection error:", err.message);
-      });
-    } catch (error) {
-      console.warn("Redis cache unavailable:", error);
-      this.redis = null;
-    }
   }
 
   async get(key: string): Promise<string | null> {
