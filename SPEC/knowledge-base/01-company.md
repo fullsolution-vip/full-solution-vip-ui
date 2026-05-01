@@ -24,4 +24,5 @@ Founded with a mission to provide effective, clean beauty solutions, we combine 
 We promise transparent labeling, effective formulations, and products that truly transform your skin.
 
 ## Keywords
+
 about, brand, company, story, mission, values, clean beauty, cruelty-free, sustainable

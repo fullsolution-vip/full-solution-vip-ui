@@ -16,8 +16,14 @@ const ingredients = [
     id: "1",
     name: "Hyaluronic Acid",
     slug: "hyaluronic-acid",
-    description: "A powerful humectant that draws moisture into the skin, providing intense hydration and a plumping effect.",
-    benefits: ["Intense hydration", "Plumping effect", "Reduces fine lines", "Suitable for all skin types"],
+    description:
+      "A powerful humectant that draws moisture into the skin, providing intense hydration and a plumping effect.",
+    benefits: [
+      "Intense hydration",
+      "Plumping effect",
+      "Reduces fine lines",
+      "Suitable for all skin types",
+    ],
     origin: "Synthetic/Plant-derived",
     safety: "Generally safe for all skin types",
     category: "Hydration",
@@ -26,7 +32,8 @@ const ingredients = [
     id: "2",
     name: "Vitamin C (Ascorbic Acid)",
     slug: "vitamin-c",
-    description: "A powerful antioxidant that brightens the skin, evens tone, and protects against environmental damage.",
+    description:
+      "A powerful antioxidant that brightens the skin, evens tone, and protects against environmental damage.",
     benefits: ["Brightening", "Anti-aging", "Sun damage protection", "Collagen boost"],
     origin: "Synthetic",
     safety: "May cause irritation in high concentrations",
@@ -36,7 +43,8 @@ const ingredients = [
     id: "3",
     name: "Niacinamide",
     slug: "niacinamide",
-    description: "Vitamin B3 that strengthens the skin barrier, regulates oil production, and evens skin tone.",
+    description:
+      "Vitamin B3 that strengthens the skin barrier, regulates oil production, and evens skin tone.",
     benefits: ["Minimizes pores", "Regulates oil", "Evens tone", "Strengthens barrier"],
     origin: "Synthetic",
     safety: "Generally safe, well-tolerated",
@@ -46,7 +54,8 @@ const ingredients = [
     id: "4",
     name: "Retinol",
     slug: "retinol",
-    description: "A gold-standard anti-aging ingredient that increases cell turnover and stimulates collagen production.",
+    description:
+      "A gold-standard anti-aging ingredient that increases cell turnover and stimulates collagen production.",
     benefits: ["Reduces fine lines", "Improves texture", "Fades dark spots", "Anti-aging"],
     origin: "Synthetic",
     safety: "May cause initial purging, use SPF",
@@ -56,7 +65,8 @@ const ingredients = [
     id: "5",
     name: "Peptides",
     slug: "peptides",
-    description: "Amino acid chains that signal the skin to produce more collagen, improving firmness and elasticity.",
+    description:
+      "Amino acid chains that signal the skin to produce more collagen, improving firmness and elasticity.",
     benefits: ["Firming", "Anti-aging", "Skin repair", "Reduces wrinkles"],
     origin: "Synthetic",
     safety: "Generally safe for all skin types",
@@ -66,7 +76,8 @@ const ingredients = [
     id: "6",
     name: "Ceramides",
     slug: "ceramides",
-    description: "Skin-identical lipids that strengthen the moisture barrier and prevent water loss.",
+    description:
+      "Skin-identical lipids that strengthen the moisture barrier and prevent water loss.",
     benefits: ["Moisture retention", "Barrier repair", "Soothes dry skin", "Anti-aging"],
     origin: "Synthetic/Plant-derived",
     safety: "Excellent safety profile",
@@ -86,7 +97,8 @@ const ingredients = [
     id: "8",
     name: "Glycolic Acid",
     slug: "glycolic-acid",
-    description: "An alpha-hydroxy acid that gently exfoliates the skin surface for a brighter, smoother complexion.",
+    description:
+      "An alpha-hydroxy acid that gently exfoliates the skin surface for a brighter, smoother complexion.",
     benefits: ["Brightening", "Texture improvement", "Evens tone", "Reduces scars"],
     origin: "Sugar cane",
     safety: "Use SPF, may cause sensitivity",
@@ -96,7 +108,8 @@ const ingredients = [
     id: "9",
     name: "Squalane",
     slug: "squalane",
-    description: "A lightweight oil that mimics the skin's natural sebum, providing hydration without clogging pores.",
+    description:
+      "A lightweight oil that mimics the skin's natural sebum, providing hydration without clogging pores.",
     benefits: ["Lightweight hydration", "Non-comedogenic", "Softens skin", "Antioxidant"],
     origin: "Plant-derived (olive/sugarcane)",
     safety: "Excellent safety profile",
@@ -106,7 +119,8 @@ const ingredients = [
     id: "10",
     name: "Centella Asiatica",
     slug: "centella-asiatica",
-    description: "Also known as Cica, this herb soothes irritation, reduces redness, and supports skin healing.",
+    description:
+      "Also known as Cica, this herb soothes irritation, reduces redness, and supports skin healing.",
     benefits: ["Soothes irritation", "Reduces redness", "Wound healing", "Anti-inflammatory"],
     origin: "Plant (Gotu Kola)",
     safety: "Very safe, suitable for sensitive skin",
@@ -114,14 +128,26 @@ const ingredients = [
   },
 ];
 
-const categories = ["All", "Hydration", "Antioxidant", "Vitamin", "Retinoid", "Peptides", "Lipids", "Exfoliant", "Oil", "Botanical"];
+const categories = [
+  "All",
+  "Hydration",
+  "Antioxidant",
+  "Vitamin",
+  "Retinoid",
+  "Peptides",
+  "Lipids",
+  "Exfoliant",
+  "Oil",
+  "Botanical",
+];
 
 export function IngredientsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredIngredients = ingredients.filter((ingredient) => {
-    const matchesSearch = ingredient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch =
+      ingredient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       ingredient.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "All" || ingredient.category === selectedCategory;
     return matchesSearch && matchesCategory;
@@ -150,8 +176,8 @@ export function IngredientsPage() {
               Our Ingredients
             </h1>
             <p className="text-lg text-muted">
-              We believe in transparent labeling. Every ingredient is chosen for its efficacy and safety.
-              Learn about the science behind our formulations.
+              We believe in transparent labeling. Every ingredient is chosen for its efficacy and
+              safety. Learn about the science behind our formulations.
             </p>
           </div>
         </div>
@@ -207,9 +233,7 @@ export function IngredientsPage() {
                       <Badge variant="secondary">{ingredient.category}</Badge>
                     </div>
                   </div>
-                  <CardTitle className="font-playfair text-xl mt-3">
-                    {ingredient.name}
-                  </CardTitle>
+                  <CardTitle className="font-playfair text-xl mt-3">{ingredient.name}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted mb-4">{ingredient.description}</p>
@@ -259,7 +283,8 @@ export function IngredientsPage() {
               Have Questions About Our Ingredients?
             </h2>
             <p className="text-muted mb-6">
-              Our team of cosmetic chemists is here to help. Contact us for more information about any of our ingredients.
+              Our team of cosmetic chemists is here to help. Contact us for more information about
+              any of our ingredients.
             </p>
             <a
               href="/contact"

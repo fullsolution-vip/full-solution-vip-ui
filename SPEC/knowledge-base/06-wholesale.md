@@ -20,13 +20,13 @@ Interested in carrying Full Solution products? We offer wholesale pricing to qua
 
 ## Minimum Orders
 
-| Customer Type | Minimum Order | Discount |
-|---------------|---------------|----------|
-| Salons | R2,000 | 40% |
-| Spas | R2,000 | 40% |
-| Retail Stores | R5,000 | 45% |
-| Online Resellers | R3,000 | 40% |
-| Distributors | R10,000 | 50% |
+| Customer Type    | Minimum Order | Discount |
+| ---------------- | ------------- | -------- |
+| Salons           | R2,000        | 40%      |
+| Spas             | R2,000        | 40%      |
+| Retail Stores    | R5,000        | 45%      |
+| Online Resellers | R3,000        | 40%      |
+| Distributors     | R10,000       | 50%      |
 
 ## How to Apply
 
@@ -38,6 +38,7 @@ Interested in carrying Full Solution products? We offer wholesale pricing to qua
 ## Wholesale Portal
 
 Registered wholesalers get access to:
+
 - Real-time pricing and inventory
 - Place orders online
 - Track shipments
@@ -48,4 +49,5 @@ Registered wholesalers get access to:
 Wholesale inquiries: wholesale@aurabeautyhub.co.za
 
 ## Keywords
+
 wholesale, bulk, reseller, B2B, salon, spa, retail, distributor

@@ -13,7 +13,7 @@ export class EmbeddingService {
 
   async generateEmbedding(text: string): Promise<number[]> {
     const hash = this.hashText(text);
-    
+
     if (this.cache.has(hash)) {
       return this.cache.get(hash)!;
     }
@@ -24,11 +24,11 @@ export class EmbeddingService {
         {
           method: "POST",
           headers: {
-            "Authorization": `Bearer ${HF_API_KEY}`,
+            Authorization: `Bearer ${HF_API_KEY}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ inputs: text }),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -37,7 +37,7 @@ export class EmbeddingService {
 
       const result = await response.json();
       const embedding = Array.isArray(result) ? result[0] : result;
-      
+
       this.cache.set(hash, embedding);
       return embedding;
     } catch (error) {
@@ -47,9 +47,7 @@ export class EmbeddingService {
   }
 
   async generateEmbeddings(texts: string[]): Promise<number[][]> {
-    const results = await Promise.all(
-      texts.map(text => this.generateEmbedding(text))
-    );
+    const results = await Promise.all(texts.map((text) => this.generateEmbedding(text)));
     return results;
   }
 

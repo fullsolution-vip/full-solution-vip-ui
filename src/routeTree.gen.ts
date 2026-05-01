@@ -22,6 +22,9 @@ import { Route as ApiDocsRouteImport } from './routes/api-docs'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ApiChatbotInitRouteImport } from './routes/api/chatbot-init'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const WholesaleRoute = WholesaleRouteImport.update({
   id: '/wholesale',
@@ -88,6 +91,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatbotInitRoute = ApiChatbotInitRouteImport.update({
+  id: '/api/chatbot-init',
+  path: '/api/chatbot-init',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +121,9 @@ export interface FileRoutesByFullPath {
   '/science': typeof ScienceRoute
   '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/chatbot-init': typeof ApiChatbotInitRoute
+  '/api/health': typeof ApiHealthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +139,9 @@ export interface FileRoutesByTo {
   '/science': typeof ScienceRoute
   '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/chatbot-init': typeof ApiChatbotInitRoute
+  '/api/health': typeof ApiHealthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +158,9 @@ export interface FileRoutesById {
   '/science': typeof ScienceRoute
   '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/chatbot-init': typeof ApiChatbotInitRoute
+  '/api/health': typeof ApiHealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +178,9 @@ export interface FileRouteTypes {
     | '/science'
     | '/signup'
     | '/wholesale'
+    | '/api/chat'
+    | '/api/chatbot-init'
+    | '/api/health'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +196,9 @@ export interface FileRouteTypes {
     | '/science'
     | '/signup'
     | '/wholesale'
+    | '/api/chat'
+    | '/api/chatbot-init'
+    | '/api/health'
   id:
     | '__root__'
     | '/'
@@ -181,6 +214,9 @@ export interface FileRouteTypes {
     | '/science'
     | '/signup'
     | '/wholesale'
+    | '/api/chat'
+    | '/api/chatbot-init'
+    | '/api/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +233,9 @@ export interface RootRouteChildren {
   ScienceRoute: typeof ScienceRoute
   SignupRoute: typeof SignupRoute
   WholesaleRoute: typeof WholesaleRoute
+  ApiChatRoute: typeof ApiChatRoute
+  ApiChatbotInitRoute: typeof ApiChatbotInitRoute
+  ApiHealthRoute: typeof ApiHealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +331,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chatbot-init': {
+      id: '/api/chatbot-init'
+      path: '/api/chatbot-init'
+      fullPath: '/api/chatbot-init'
+      preLoaderRoute: typeof ApiChatbotInitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +369,9 @@ const rootRouteChildren: RootRouteChildren = {
   ScienceRoute: ScienceRoute,
   SignupRoute: SignupRoute,
   WholesaleRoute: WholesaleRoute,
+  ApiChatRoute: ApiChatRoute,
+  ApiChatbotInitRoute: ApiChatbotInitRoute,
+  ApiHealthRoute: ApiHealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

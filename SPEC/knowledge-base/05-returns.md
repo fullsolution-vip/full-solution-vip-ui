@@ -26,6 +26,7 @@ We stand behind our products. If you're not completely satisfied, return within 
 ## Exceptions
 
 The following cannot be returned:
+
 - Opened/sealed products (hygiene reasons)
 - Products used more than 25%
 - Free promotional items
@@ -33,15 +34,16 @@ The following cannot be returned:
 ## Refund Methods
 
 | Original Payment | Refund Method |
-|------------------|---------------|
-| Credit Card | Same card |
-| EFT | Bank transfer |
-| PayFast | Same method |
+| ---------------- | ------------- |
+| Credit Card      | Same card     |
+| EFT              | Bank transfer |
+| PayFast          | Same method   |
 | Cash on Delivery | Bank transfer |
 
 ## Defective Products
 
 If you receive a defective product:
+
 1. Contact us within 7 days
 2. Send photo of defect
 3. We'll arrange replacement at no cost
@@ -49,8 +51,10 @@ If you receive a defective product:
 ## Exchange Options
 
 Prefer a different product?
+
 - Exchange for equal/higher value
 - Store credit for future purchase
 
 ## Keywords
+
 return, refund, exchange, defective, guarantee, satisfaction, money back

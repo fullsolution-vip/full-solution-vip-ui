@@ -33,11 +33,7 @@ describe("Supabase Database Operations", () => {
 
     // Simulate storing a message
     await retrievalService.storeMessage(sessionId, "user", testMessage);
-    expect(retrievalService.storeMessage).toHaveBeenCalledWith(
-      sessionId,
-      "user",
-      testMessage
-    );
+    expect(retrievalService.storeMessage).toHaveBeenCalledWith(sessionId, "user", testMessage);
 
     // Simulate retrieving messages
     const mockMessages = [
@@ -88,10 +84,7 @@ describe("Supabase Database Operations", () => {
       },
     ]);
 
-    const response = await chatService.generateResponse(
-      "session-1",
-      "Tell me about Full Solution"
-    );
+    const response = await chatService.generateResponse("session-1", "Tell me about Full Solution");
 
     expect(response.message).toContain("Full Solution");
     expect(response.sources).toContain("01-company.md");

@@ -45,9 +45,7 @@ export function AccountPage() {
           <Card>
             <CardHeader className="text-center">
               <CardTitle>Sign In Required</CardTitle>
-              <CardDescription>
-                Please sign in to view your account
-              </CardDescription>
+              <CardDescription>Please sign in to view your account</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <Button asChild>
@@ -133,20 +131,13 @@ export function AccountPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Profile Information</CardTitle>
-                    <CardDescription>
-                      Manage your account details
-                    </CardDescription>
+                    <CardDescription>Manage your account details</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form className="space-y-4">
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          defaultValue={user.email || ""}
-                          disabled
-                        />
+                        <Input id="email" type="email" defaultValue={user.email || ""} disabled />
                       </div>
                       <Button type="submit">Save Changes</Button>
                     </form>
@@ -159,9 +150,7 @@ export function AccountPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Order History</CardTitle>
-                    <CardDescription>
-                      View and track your orders
-                    </CardDescription>
+                    <CardDescription>View and track your orders</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="text-center py-8 text-muted">
@@ -180,9 +169,7 @@ export function AccountPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Wishlist</CardTitle>
-                    <CardDescription>
-                      Your saved products
-                    </CardDescription>
+                    <CardDescription>Your saved products</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="text-center py-8 text-muted">

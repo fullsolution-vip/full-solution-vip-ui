@@ -8,7 +8,7 @@ export const Route = createFileRoute("/api/health")({
       GET: async () => {
         try {
           logger.info("health-check", "Checking system health...");
-          
+
           const health = {
             status: "ok",
             timestamp: new Date().toISOString(),
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/api/health")({
           health.services.redis = redisUrl ? "configured" : "not_configured";
 
           const allHealthy = Object.values(health.services).every(
-            (s) => s === "ok" || s === "configured"
+            (s) => s === "ok" || s === "configured",
           );
 
           return Response.json(health, {
@@ -46,10 +46,7 @@ export const Route = createFileRoute("/api/health")({
           });
         } catch (error) {
           logger.error("health-check", "Health check failed", error);
-          return Response.json(
-            { status: "error", message: String(error) },
-            { status: 500 }
-          );
+          return Response.json({ status: "error", message: String(error) }, { status: 500 });
         }
       },
     },

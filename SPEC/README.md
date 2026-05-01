@@ -31,11 +31,13 @@ SPEC/
 ## 🔑 Quick Rules
 
 ### Before Any Change
+
 1. Check [CONSTITUTION.md](CONSTITUTION.md) for design rules
 2. Check [FEATURES.md](FEATURES.md) to see if feature exists
 3. Log new features in [FEATURES.md](FEATURES.md)
 
 ### Before Merging
+
 ```bash
 npm run typecheck  # Must pass
 npm run lint       # Must pass
@@ -43,6 +45,7 @@ npm run test       # Must pass
 ```
 
 ### Design Rules (from CONSTITUTION.md)
+
 - Primary color: `#8B2635`
 - Secondary: `#F5EDE4`
 - Accent: `#C9A962`
@@ -54,32 +57,32 @@ npm run test       # Must pass
 
 ## 📋 Feature Status
 
-| Feature | Status |
-|---------|--------|
-| Home Page | ✅ Live |
-| About Page | ✅ Live |
-| Products Page | ✅ Live |
-| Science Page | ✅ Live |
-| Contact Page | ✅ Live |
-| Wholesale Page | ✅ Live |
-| Ingredients Page | 🔄 Proposed |
-| Categories Page | 🔄 Proposed |
-| Customer Portal | 🔄 Proposed |
+| Feature              | Status      |
+| -------------------- | ----------- |
+| Home Page            | ✅ Live     |
+| About Page           | ✅ Live     |
+| Products Page        | ✅ Live     |
+| Science Page         | ✅ Live     |
+| Contact Page         | ✅ Live     |
+| Wholesale Page       | ✅ Live     |
+| Ingredients Page     | 🔄 Proposed |
+| Categories Page      | 🔄 Proposed |
+| Customer Portal      | 🔄 Proposed |
 | WhatsApp Integration | 🔄 Proposed |
-| AI Chatbot | 🔄 Proposed |
+| AI Chatbot           | 🔄 Proposed |
 
 ---
 
 ## 🛠 Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| Frontend | TanStack Start + Vite |
-| Styling | CSS + Shadcn UI |
-| Runtime | Bun |
-| Database | Supabase (recommended) |
-| Deployment | Vercel + Cloudflare |
-| Container | Docker + Docker Compose |
+| Component  | Technology              |
+| ---------- | ----------------------- |
+| Frontend   | TanStack Start + Vite   |
+| Styling    | CSS + Shadcn UI         |
+| Runtime    | Bun                     |
+| Database   | Supabase (recommended)  |
+| Deployment | Vercel + Cloudflare     |
+| Container  | Docker + Docker Compose |
 
 ---
 
@@ -110,4 +113,4 @@ docker compose up --build
 
 ---
 
-*Consult this folder before any significant changes.*
+_Consult this folder before any significant changes._

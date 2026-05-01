@@ -1,7 +1,7 @@
 # Testing Requirements
 
 > **Version:** 1.0.0  
-> **Last Updated:** 2026-04-27  
+> **Last Updated:** 2026-04-27
 
 All features must pass tests before merging. This document defines testing standards.
 
@@ -9,13 +9,13 @@ All features must pass tests before merging. This document defines testing stand
 
 ## 🧪 Test Stack
 
-| Type | Tool | Purpose |
-|------|------|---------|
-| Unit | Vitest | Component & utility tests |
-| E2E | Playwright | Full user flows |
-| Visual | Chromatic | UI regression |
-| Lint | ESLint | Code quality |
-| Type | TypeScript | Type safety |
+| Type   | Tool       | Purpose                   |
+| ------ | ---------- | ------------------------- |
+| Unit   | Vitest     | Component & utility tests |
+| E2E    | Playwright | Full user flows           |
+| Visual | Chromatic  | UI regression             |
+| Lint   | ESLint     | Code quality              |
+| Type   | TypeScript | Type safety               |
 
 ---
 
@@ -45,26 +45,27 @@ src/
 ### 1. Component Tests
 
 Every new component needs:
+
 - Render test
 - Props validation
 - Interaction test (if interactive)
 
 ```tsx
 // Example: Button.test.tsx
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { Button } from './Button';
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { Button } from "./Button";
 
-describe('Button', () => {
-  it('renders with text', () => {
+describe("Button", () => {
+  it("renders with text", () => {
     render(<Button>Click me</Button>);
-    expect(screen.getByRole('button')).toHaveTextContent('Click me');
+    expect(screen.getByRole("button")).toHaveTextContent("Click me");
   });
 
-  it('handles click', async () => {
+  it("handles click", async () => {
     const handler = vi.fn();
     render(<Button onClick={handler}>Click me</Button>);
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getByRole("button"));
     expect(handler).toHaveBeenCalled();
   });
 });
@@ -76,17 +77,17 @@ Validate CONSTITUTION.md compliance:
 
 ```tsx
 // design-tokens.test.ts
-import { describe, it, expect } from 'vitest';
-import { tokens } from '../styles/tokens.css';
+import { describe, it, expect } from "vitest";
+import { tokens } from "../styles/tokens.css";
 
-describe('Design Tokens', () => {
-  it('primary color matches constitution', () => {
-    expect(tokens.color.primary).toBe('#8B2635');
+describe("Design Tokens", () => {
+  it("primary color matches constitution", () => {
+    expect(tokens.color.primary).toBe("#8B2635");
   });
 
-  it('font families are correct', () => {
-    expect(tokens.font.family.heading).toBe('Playfair Display');
-    expect(tokens.font.family.body).toBe('DM Sans');
+  it("font families are correct", () => {
+    expect(tokens.font.family.heading).toBe("Playfair Display");
+    expect(tokens.font.family.body).toBe("DM Sans");
   });
 });
 ```
@@ -97,22 +98,22 @@ Test user flows:
 
 ```tsx
 // navigation.test.ts
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { RouterProvider, createMemoryRouter } from 'react-router';
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { RouterProvider, createMemoryRouter } from "react-router";
 
-describe('Navigation', () => {
-  it('navigates between pages', async () => {
+describe("Navigation", () => {
+  it("navigates between pages", async () => {
     const router = createMemoryRouter([
-      { path: '/', element: <Home /> },
-      { path: '/about', element: <About /> },
+      { path: "/", element: <Home /> },
+      { path: "/about", element: <About /> },
     ]);
-    
+
     render(<RouterProvider router={router} />);
-    
-    await userEvent.click(screen.getByRole('link', { name: /about/i }));
-    expect(screen.getByRole('heading', { name: /about/i })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("link", { name: /about/i }));
+    expect(screen.getByRole("heading", { name: /about/i })).toBeInTheDocument();
   });
 });
 ```
@@ -121,12 +122,12 @@ describe('Navigation', () => {
 
 ## 🎯 Test Coverage Goals
 
-| Category | Target |
-|----------|--------|
-| Components | 80% |
-| Utilities | 90% |
-| Hooks | 80% |
-| Routes | 70% |
+| Category   | Target |
+| ---------- | ------ |
+| Components | 80%    |
+| Utilities  | 90%    |
+| Hooks      | 80%    |
+| Routes     | 70%    |
 
 ---
 
@@ -185,4 +186,4 @@ npm run test -- --update-snapshots
 
 ---
 
-*All PRs must pass tests before merge. No exceptions.*
+_All PRs must pass tests before merge. No exceptions._

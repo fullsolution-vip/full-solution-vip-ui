@@ -52,11 +52,13 @@ REDIS_URL=redis://...
 ## Database Setup
 
 1. **Enable pgvector in Supabase:**
+
    ```sql
    create extension if not exists vector;
    ```
 
 2. **Run migration:**
+
    ```bash
    # Apply the chatbot schema migration
    supabase db push
@@ -71,6 +73,7 @@ REDIS_URL=redis://...
 ## Chatbot & Knowledge Base
 
 The chatbot uses RAG architecture:
+
 - Loads `.md` files from `SPEC/knowledge-base/`
 - Generates embeddings via Hugging Face API
 - Stores in Supabase with pgvector
@@ -119,6 +122,7 @@ docker-compose -f docker-compose.observability.yml up -d
 ### Configuration
 
 Edit configs in `.docker/`:
+
 - `otel-collector-config.yaml` - OpenTelemetry Collector
 - `prometheus.yml` - Metrics scraping
 - `loki-config.yaml` - Log aggregation
@@ -147,6 +151,7 @@ npm run test:watch
 ## Authentication (Supabase)
 
 The app uses Supabase Auth:
+
 - Email/password login: `/login`
 - Google OAuth: Click "Continue with Google"
 - Protected routes: `/account`
@@ -222,7 +227,7 @@ src/
 
 ```sql
 -- Check if tables exist
-SELECT table_name FROM information_schema.tables 
-WHERE table_schema = 'public' 
+SELECT table_name FROM information_schema.tables
+WHERE table_schema = 'public'
 AND table_name LIKE 'chatbot_%';
 ```

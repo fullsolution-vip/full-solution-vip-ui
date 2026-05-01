@@ -49,7 +49,7 @@ describe("Chatbot RAG System", () => {
       vi.mocked(embeddingService.hashText)
         .mockReturnValueOnce("hash1")
         .mockReturnValueOnce("hash1");
-      
+
       const hash1 = embeddingService.hashText("hello");
       const hash2 = embeddingService.hashText("hello");
       expect(hash1).toBe(hash2);

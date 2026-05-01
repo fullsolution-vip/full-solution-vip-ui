@@ -100,20 +100,19 @@ export function CategoriesPage() {
               Product Categories
             </h1>
             <p className="text-lg text-muted">
-              Explore our complete range of beauty and personal care products.
-              From skincare to haircare, find everything you need for your beauty routine.
+              Explore our complete range of beauty and personal care products. From skincare to
+              haircare, find everything you need for your beauty routine.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Featured Categories */}
       <section className="py-12">
         <div className="container px-4">
           <h2 className="font-playfair text-2xl font-semibold mb-6">Featured Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredCategories.map((category) => (
-              <Link key={category.id} to={`/products?category=${category.slug}`}>
+              <a key={category.id} href={`/products?category=${category.slug}`}>
                 <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300">
                   <div className="relative h-48 overflow-hidden">
                     <img
@@ -134,19 +133,18 @@ export function CategoriesPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* All Categories */}
-      <section className="py-12 bg-secondary/30">
+      <section className="py-12 bg-muted/30">
         <div className="container px-4">
           <h2 className="font-playfair text-2xl font-semibold mb-6">All Categories</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {categories.map((category) => (
-              <Link key={category.id} to={`/products?category=${category.slug}`}>
+              <a key={category.id} href={`/products?category=${category.slug}`}>
                 <Card className="group hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4 flex items-center justify-between">
                     <div>
@@ -158,7 +156,7 @@ export function CategoriesPage() {
                     <ArrowRight className="h-4 w-4 text-muted group-hover:text-primary group-hover:translate-x-1 transition-all" />
                   </CardContent>
                 </Card>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
@@ -181,15 +179,11 @@ export function CategoriesPage() {
               <div className="text-sm text-muted">Products</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-playfair font-bold text-primary mb-1">
-                100%
-              </div>
+              <div className="text-3xl font-playfair font-bold text-primary mb-1">100%</div>
               <div className="text-sm text-muted">Cruelty-Free</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-playfair font-bold text-primary mb-1">
-                SA
-              </div>
+              <div className="text-3xl font-playfair font-bold text-primary mb-1">SA</div>
               <div className="text-sm text-muted">Made in South Africa</div>
             </div>
           </div>

@@ -5,6 +5,7 @@ This directory contains Docker Compose configuration for observing the Full Solu
 ## Quick Start
 
 1. Start the observability stack:
+
    ```bash
    docker-compose -f docker-compose.observability.yml up -d
    ```
@@ -31,6 +32,7 @@ This directory contains Docker Compose configuration for observing the Full Solu
 ## Configuration
 
 Configuration files are in `.docker/` directory:
+
 - `otel-collector-config.yaml` - OpenTelemetry Collector config
 - `prometheus.yml` - Prometheus scrape config
 - `loki-config.yaml` - Loki config

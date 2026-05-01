@@ -8,10 +8,10 @@ priority: high
 
 ## Delivery Times
 
-| Service | Delivery Time | Cost |
-|---------|---------------|------|
-| Standard | 5-7 business days | R99 |
-| Express | 2-3 business days | R149 |
+| Service       | Delivery Time     | Cost                     |
+| ------------- | ----------------- | ------------------------ |
+| Standard      | 5-7 business days | R99                      |
+| Express       | 2-3 business days | R149                     |
 | Free Shipping | 5-7 business days | Free on orders over R500 |
 
 ## Shipping Areas
@@ -21,6 +21,7 @@ We deliver throughout South Africa. International shipping available upon reques
 ## Tracking Your Order
 
 Once your order ships, you'll receive:
+
 1. Confirmation email with tracking number
 2. SMS updates on delivery status
 3. Link to track package in real-time
@@ -28,6 +29,7 @@ Once your order ships, you'll receive:
 ## Delivery Partners
 
 We use trusted courier services:
+
 - Courier It
 - Paxi
 - South African Post Office
@@ -43,4 +45,5 @@ We use trusted courier services:
 During peak periods (Black Friday, Christmas), expect slight delays. We'll communicate any issues promptly.
 
 ## Keywords
+
 shipping, delivery, tracking, courier, express, standard, free shipping, processing time

@@ -117,21 +117,15 @@ export function SignupPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
-            <h1 className="font-playfair text-3xl font-bold text-primary">
-              Full Solution
-            </h1>
+            <h1 className="font-playfair text-3xl font-bold text-primary">Full Solution</h1>
           </Link>
         </div>
 
         {/* Signup Card */}
         <div className="bg-surface border border-border rounded-lg p-8 shadow-sm">
           <div className="text-center mb-6">
-            <h2 className="font-playfair text-2xl font-semibold text-foreground">
-              Create Account
-            </h2>
-            <p className="text-sm text-muted mt-1">
-              Join us for exclusive benefits
-            </p>
+            <h2 className="font-playfair text-2xl font-semibold text-foreground">Create Account</h2>
+            <p className="text-sm text-muted mt-1">Join us for exclusive benefits</p>
           </div>
 
           {/* Error Message */}
@@ -203,16 +197,10 @@ export function SignupPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              <p className="text-xs text-muted">
-                Must be at least 8 characters
-              </p>
+              <p className="text-xs text-muted">Must be at least 8 characters</p>
             </div>
 
             {/* Confirm Password */}
@@ -238,11 +226,11 @@ export function SignupPage() {
               />
               <Label htmlFor="terms" className="text-sm cursor-pointer leading-relaxed">
                 I agree to the{" "}
-                <a to="/terms" className="text-primary hover:underline">
+                <a href="/terms" className="text-primary hover:underline">
                   Terms of Service
                 </a>{" "}
                 and{" "}
-                <a to="/privacy" className="text-primary hover:underline">
+                <a href="/privacy" className="text-primary hover:underline">
                   Privacy Policy
                 </a>
               </Label>
@@ -267,9 +255,7 @@ export function SignupPage() {
               <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-surface px-2 text-muted">
-                Or continue with
-              </span>
+              <span className="bg-surface px-2 text-muted">Or continue with</span>
             </div>
           </div>
 

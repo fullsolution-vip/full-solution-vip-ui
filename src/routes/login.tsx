@@ -79,21 +79,15 @@ export function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
-            <h1 className="font-playfair text-3xl font-bold text-primary">
-              Full Solution
-            </h1>
+            <h1 className="font-playfair text-3xl font-bold text-primary">Full Solution</h1>
           </Link>
         </div>
 
         {/* Login Card */}
         <div className="bg-surface border border-border rounded-lg p-8 shadow-sm">
           <div className="text-center mb-6">
-            <h2 className="font-playfair text-2xl font-semibold text-foreground">
-              Welcome Back
-            </h2>
-            <p className="text-sm text-muted mt-1">
-              Sign in to your account
-            </p>
+            <h2 className="font-playfair text-2xl font-semibold text-foreground">Welcome Back</h2>
+            <p className="text-sm text-muted mt-1">Sign in to your account</p>
           </div>
 
           {/* Error Message */}
@@ -122,10 +116,7 @@ export function LoginPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                  <a
-                  href="/forgot-password"
-                  className="text-sm text-primary hover:underline"
-                >
+                <a href="/forgot-password" className="text-sm text-primary hover:underline">
                   Forgot password?
                 </a>
               </div>
@@ -145,11 +136,7 @@ export function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
@@ -185,9 +172,7 @@ export function LoginPage() {
               <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-surface px-2 text-muted">
-                Or continue with
-              </span>
+              <span className="bg-surface px-2 text-muted">Or continue with</span>
             </div>
           </div>
 

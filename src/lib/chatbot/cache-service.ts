@@ -10,18 +10,25 @@ export class CacheService {
 
   constructor() {
     if (typeof window !== "undefined") return;
-    
+
     try {
-      const Redis = require("ioredis").default || require("ioredis");
-      if (LANGCACHE_URL && LANGCACHE_API_KEY) {
-        this.redis = new Redis(LANGCACHE_URL, {
-          password: LANGCACHE_API_KEY,
-          tls: {},
+      // Dynamic import for server-side only
+      import("ioredis")
+        .then((module) => {
+          const Redis = module.default || module;
+          if (LANGCACHE_URL && LANGCACHE_API_KEY) {
+            this.redis = new Redis(LANGCACHE_URL, {
+              password: LANGCACHE_API_KEY,
+              tls: {},
+            });
+            this.useLangcache = true;
+          } else if (REDIS_URL) {
+            this.redis = new Redis(REDIS_URL);
+          }
+        })
+        .catch((err) => {
+          console.warn("Redis cache unavailable:", err);
         });
-        this.useLangcache = true;
-      } else if (REDIS_URL) {
-        this.redis = new Redis(REDIS_URL);
-      }
     } catch (error) {
       console.warn("Redis cache unavailable:", error);
     }

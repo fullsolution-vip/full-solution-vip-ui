@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # OpenTelemetry Collector
@@ -11,8 +11,8 @@ services:
       - ./.docker/otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
       - ./logs:/logs
     ports:
-      - "4317:4317"   # OTLP gRPC
-      - "4318:4318"   # OTLP HTTP
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
       - "55679:55679" # Promethes metrics
     environment:
       - LOGS_DIR=/logs

@@ -1,7 +1,7 @@
 # AI Assistant Recommendations
 
 > **Version:** 1.0.0  
-> **Last Updated:** 2026-04-27  
+> **Last Updated:** 2026-04-27
 
 This document provides AI assistants with guidance on recommended technologies, patterns, and enhancements for Aura Beauty Hub.
 
@@ -10,6 +10,7 @@ This document provides AI assistants with guidance on recommended technologies, 
 ## 🛠 Technology Stack Recommendations
 
 ### Current Stack (Frontend)
+
 - **Framework:** TanStack Start (React)
 - **Styling:** CSS Modules + Shadcn UI
 - **Build Tool:** Vite
@@ -17,12 +18,12 @@ This document provides AI assistants with guidance on recommended technologies, 
 
 ### Recommended Backend Options
 
-| Option | Pros | Cons | Recommendation |
-|--------|------|------|----------------|
-| **Supabase** | Free tier, PostgreSQL, Auth, Realtime | Limited to 2GB on free | ✅ Recommended |
-| **Firebase** | Generous free tier, Easy auth | Vendor lock-in | Consider for quick MVP |
-| **Cloudflare D1** | Free tier, Edge ready | Limited queries | ✅ Good for Vercel/Cloudflare |
-| **Neon (PostgreSQL)** | Generous free, Branching | Cold starts | Good alternative |
+| Option                | Pros                                  | Cons                   | Recommendation                |
+| --------------------- | ------------------------------------- | ---------------------- | ----------------------------- |
+| **Supabase**          | Free tier, PostgreSQL, Auth, Realtime | Limited to 2GB on free | ✅ Recommended                |
+| **Firebase**          | Generous free tier, Easy auth         | Vendor lock-in         | Consider for quick MVP        |
+| **Cloudflare D1**     | Free tier, Edge ready                 | Limited queries        | ✅ Good for Vercel/Cloudflare |
+| **Neon (PostgreSQL)** | Generous free, Branching              | Cold starts            | Good alternative              |
 
 **Recommendation:** Start with **Supabase** — excellent free tier, PostgreSQL (relational data fits e-commerce), built-in auth, and easy API generation.
 
@@ -31,6 +32,7 @@ This document provides AI assistants with guidance on recommended technologies, 
 ## 📁 Project Structure Recommendations
 
 ### Current Structure
+
 ```
 src/
 ├── components/
@@ -71,7 +73,7 @@ src/
 
 ```tsx
 // Recommended pattern
-import { Image } from '@unpic/react';
+import { Image } from "@unpic/react";
 
 <Image
   src={product.image}
@@ -79,24 +81,25 @@ import { Image } from '@unpic/react';
   widths={[320, 640, 960]}
   sizes="(max-width: 768px) 100vw, 50vw"
   alt={product.name}
-/>
+/>;
 ```
 
 ### Code Splitting
 
 - Route-based splitting (TanStack Start does this)
 - Component lazy loading for heavy features:
+
 ```tsx
-const HeavyComponent = lazy(() => import('./HeavyComponent'));
+const HeavyComponent = lazy(() => import("./HeavyComponent"));
 ```
 
 ### Caching Strategy
 
-| Resource | Cache Strategy | TTL |
-|----------|----------------|-----|
-| Static assets | Cache-first | 1 year |
-| API responses | Stale-while-revalidate | 5 min |
-| HTML | Network-first | 0 |
+| Resource      | Cache Strategy         | TTL    |
+| ------------- | ---------------------- | ------ |
+| Static assets | Cache-first            | 1 year |
+| API responses | Stale-while-revalidate | 5 min  |
+| HTML          | Network-first          | 0      |
 
 ---
 
@@ -205,11 +208,11 @@ services:
 
 ### Deployment Targets
 
-| Platform | Status | Notes |
-|----------|--------|-------|
-| **Vercel** | ✅ Configured | Primary deployment |
-| **Cloudflare Pages** | ⚠️ Needs setup | Edge deployment |
-| **Railway** | 🔄 Optional | Backend hosting |
+| Platform             | Status         | Notes              |
+| -------------------- | -------------- | ------------------ |
+| **Vercel**           | ✅ Configured  | Primary deployment |
+| **Cloudflare Pages** | ⚠️ Needs setup | Edge deployment    |
+| **Railway**          | 🔄 Optional    | Backend hosting    |
 
 ---
 
@@ -218,6 +221,7 @@ services:
 ### Component Library Extensions
 
 Consider adding:
+
 - **Data table** — For admin panels
 - **Date picker** — For scheduling
 - **File upload** — For product images
@@ -235,12 +239,14 @@ Consider adding:
 ## 🔒 Security Recommendations
 
 ### API Security
+
 - Rate limiting: 100 req/min per IP
 - CORS: Specific origins only
 - JWT expiry: 15 min access, 7 day refresh
 - Sanitize all inputs
 
 ### Environment Variables Required
+
 ```
 DATABASE_URL=
 SUPABASE_URL=
@@ -263,12 +269,13 @@ OPENAI_API_KEY=  # For chatbot
 6. **Lint** — No lint errors
 
 ### Code Quality Gates
+
 ```bash
 npm run typecheck  # Must pass
-npm run lint       # Must pass  
+npm run lint       # Must pass
 npm run test       # Must pass
 ```
 
 ---
 
-*AI assistants should consult this file before proposing architectural changes.*
+_AI assistants should consult this file before proposing architectural changes._

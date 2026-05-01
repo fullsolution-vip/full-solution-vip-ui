@@ -52,13 +52,13 @@ export function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input, sessionId }),
       });
-      
+
       const data = await response.json();
-      
+
       if (data.error) {
         throw new Error(data.error);
       }
-      
+
       const assistantMessage: Message = {
         id: crypto.randomUUID(),
         role: "assistant",
@@ -100,11 +100,7 @@ export function ChatWidget() {
               <Bot className="size-5 text-primary" />
               <CardTitle className="text-base">Full Solution Assistant</CardTitle>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(false)}
-            >
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
               <X className="size-4" />
             </Button>
           </CardHeader>
@@ -121,7 +117,7 @@ export function ChatWidget() {
                   key={msg.id}
                   className={cn(
                     "mb-3 flex gap-2",
-                    msg.role === "user" ? "justify-end" : "justify-start"
+                    msg.role === "user" ? "justify-end" : "justify-start",
                   )}
                 >
                   {msg.role === "assistant" && (
@@ -132,9 +128,7 @@ export function ChatWidget() {
                   <div
                     className={cn(
                       "max-w-[75%] rounded-lg p-2.5 text-sm",
-                      msg.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted"
+                      msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted",
                     )}
                   >
                     {msg.content}

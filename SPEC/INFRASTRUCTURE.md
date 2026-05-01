@@ -1,7 +1,7 @@
 # Infrastructure Configuration
 
 > **Version:** 1.0.0  
-> **Last Updated:** 2026-04-27  
+> **Last Updated:** 2026-04-27
 
 This document defines deployment configurations, Docker setup, and infrastructure requirements.
 
@@ -52,7 +52,7 @@ CMD ["bun", "run", "start"]
 
 ```yaml
 # filepath: docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   web:
@@ -114,7 +114,7 @@ networks:
 
 ```yaml
 # filepath: docker-compose.dev.yml
-version: '3.8'
+version: "3.8"
 
 services:
   web:
@@ -418,4 +418,4 @@ HUGGINGFACE_API_KEY=hf_...
 
 ---
 
-*Update this file when infrastructure changes.*
+_Update this file when infrastructure changes._

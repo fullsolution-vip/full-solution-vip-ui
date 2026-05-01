@@ -51,13 +51,13 @@ export function ChatInterface() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input, sessionId }),
       });
-      
+
       const data = await response.json();
-      
+
       if (data.error) {
         throw new Error(data.error);
       }
-      
+
       const assistantMessage: Message = {
         id: crypto.randomUUID(),
         role: "assistant",
@@ -96,10 +96,7 @@ export function ChatInterface() {
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={cn(
-              "mb-4 flex gap-3",
-              msg.role === "user" ? "justify-end" : "justify-start"
-            )}
+            className={cn("mb-4 flex gap-3", msg.role === "user" ? "justify-end" : "justify-start")}
           >
             {msg.role === "assistant" && (
               <div className="size-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -109,9 +106,7 @@ export function ChatInterface() {
             <div
               className={cn(
                 "max-w-[80%] rounded-lg p-3 text-sm",
-                msg.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted"
+                msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted",
               )}
             >
               {msg.content}

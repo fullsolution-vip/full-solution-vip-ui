@@ -1,7 +1,7 @@
 # Knowledge Base — Chatbot
 
 > **Version:** 1.0.0  
-> **Last Updated:** 2026-04-27  
+> **Last Updated:** 2026-04-27
 
 This folder contains markdown files that the AI chatbot uses to answer customer questions. Add new `.md` files here to expand the chatbot's knowledge.
 
@@ -45,12 +45,15 @@ Brief introduction.
 ## FAQ
 
 ### Question 1?
+
 Answer 1.
 
 ### Question 2?
+
 Answer 2.
 
 ## Keywords
+
 shipping, delivery, tracking, courier
 ```
 
@@ -59,6 +62,7 @@ shipping, delivery, tracking, courier
 ## 🔧 Chatbot Configuration
 
 The chatbot uses:
+
 - **Model:** HuggingFace inference API (free tier)
 - **Fallback:** Rule-based FAQ matching
 - **Context:** All `.md` files in this folder
@@ -72,4 +76,4 @@ VITE_HUGGINGFACE_MODEL=bigscience/bloom-560m
 
 ---
 
-*Add markdown files to expand chatbot knowledge.*
+_Add markdown files to expand chatbot knowledge._

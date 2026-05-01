@@ -20,7 +20,7 @@ export function log(
   level: LogEntry["level"],
   service: string,
   message: string,
-  data?: unknown
+  data?: unknown,
 ): void {
   const entry: LogEntry = {
     timestamp: new Date().toISOString(),
@@ -40,12 +40,8 @@ export function log(
 }
 
 export const logger = {
-  info: (service: string, message: string, data?: unknown) =>
-    log("info", service, message, data),
-  warn: (service: string, message: string, data?: unknown) =>
-    log("warn", service, message, data),
-  error: (service: string, message: string, data?: unknown) =>
-    log("error", service, message, data),
-  debug: (service: string, message: string, data?: unknown) =>
-    log("debug", service, message, data),
+  info: (service: string, message: string, data?: unknown) => log("info", service, message, data),
+  warn: (service: string, message: string, data?: unknown) => log("warn", service, message, data),
+  error: (service: string, message: string, data?: unknown) => log("error", service, message, data),
+  debug: (service: string, message: string, data?: unknown) => log("debug", service, message, data),
 };

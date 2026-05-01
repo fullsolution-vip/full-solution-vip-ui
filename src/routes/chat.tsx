@@ -9,7 +9,8 @@ export const Route = createFileRoute("/chat")({
       { title: "Chat with Full Solution Assistant" },
       {
         name: "description",
-        content: "Get instant answers about Full Solution products, ingredients, shipping, and more.",
+        content:
+          "Get instant answers about Full Solution products, ingredients, shipping, and more.",
       },
     ],
   }),

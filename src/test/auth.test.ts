@@ -1,6 +1,15 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { getSupabase } from "@/lib/supabase";
 
+interface MockAuth {
+  signInWithPassword: ReturnType<typeof vi.fn>;
+  signInWithOAuth: ReturnType<typeof vi.fn>;
+}
+
+interface MockSupabase {
+  auth: MockAuth;
+}
+
 vi.mock("@/lib/supabase", () => ({
   getSupabase: vi.fn(),
 }));
@@ -15,15 +24,15 @@ describe("Authentication", () => {
   });
 
   it("should create Supabase client with correct config", () => {
-    const mockClient = {
+    const mockClient: MockSupabase = {
       auth: {
         signInWithPassword: vi.fn(),
         signInWithOAuth: vi.fn(),
       },
     };
-    
-    vi.mocked(getSupabase).mockReturnValue(mockClient as any);
-    
+
+    vi.mocked(getSupabase).mockReturnValue(mockClient as unknown as ReturnType<typeof getSupabase>);
+
     const client = getSupabase();
     expect(client).toBeDefined();
     expect(getSupabase).toHaveBeenCalled();
@@ -34,21 +43,22 @@ describe("Authentication", () => {
       data: { user: { id: "123", email: "test@example.com" } },
       error: null,
     });
-    
-    const mockClient = {
+
+    const mockClient: MockSupabase = {
       auth: {
         signInWithPassword: mockSignIn,
+        signInWithOAuth: vi.fn(),
       },
     };
-    
-    vi.mocked(getSupabase).mockReturnValue(mockClient as any);
-    
+
+    vi.mocked(getSupabase).mockReturnValue(mockClient as unknown as ReturnType<typeof getSupabase>);
+
     const supabase = getSupabase();
     const result = await supabase.auth.signInWithPassword({
       email: "test@example.com",
       password: "password123",
     });
-    
+
     expect(mockSignIn).toHaveBeenCalledWith({
       email: "test@example.com",
       password: "password123",
@@ -61,21 +71,22 @@ describe("Authentication", () => {
       data: null,
       error: { message: "Invalid login credentials" },
     });
-    
-    const mockClient = {
+
+    const mockClient: MockSupabase = {
       auth: {
         signInWithPassword: mockSignIn,
+        signInWithOAuth: vi.fn(),
       },
     };
-    
-    vi.mocked(getSupabase).mockReturnValue(mockClient as any);
-    
+
+    vi.mocked(getSupabase).mockReturnValue(mockClient as unknown as ReturnType<typeof getSupabase>);
+
     const supabase = getSupabase();
     const result = await supabase.auth.signInWithPassword({
       email: "wrong@example.com",
       password: "wrongpass",
     });
-    
+
     expect(result.error).toBeDefined();
     expect(result.error?.message).toBe("Invalid login credentials");
   });
