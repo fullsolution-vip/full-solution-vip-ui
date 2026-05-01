@@ -429,3 +429,103 @@ AND table_name LIKE 'chatbot_%';
 2. Verify all env vars are set in Vercel dashboard
 3. Check build logs: `vercel logs`
 4. Test build locally: `npm run build`
+
+## GitHub Actions & CI/CD|
+
+### Trigger Workflow Runs|
+
+After adding secrets (see [DEPLOYMENT.md](DEPLOYMENT.md)), you can trigger workflows remotely:|
+
+#### Re-run Latest Workflow:|
+```bash|
+# On GitHub, go to:|
+# https://github.com/fullsolution-vip/full-solution-vip-ui/actions|
+
+# Or push a small change to trigger:|
+echo "trigger" >> README.md|
+git add . && git commit -m "chore: trigger CI"|
+git push origin develop|
+```
+
+#### Manually Trigger (if workflow_dispatch is enabled):|
+```bash|
+# Using GitHub CLI (gh) - if installed:|
+gh workflow run ci.yml --ref develop|
+
+# Or visit:|
+# https://github.com/fullsolution-vip/full-solution-vip-ui/actions/workflows/ci.yml|
+```
+
+#### Check Workflow Status:|
+```bash|
+gh run list --repo fullsolution-vip/full-solution-vip-ui|
+
+# Or visit:|
+# https://github.com/fullsolution-vip/full-solution-vip-ui/actions|
+```
+
+---
+
+## Create Pull Request (develop → main)|
+
+### Via GitHub CLI:|
+```bash|
+# Ensure you're on develop|
+git checkout develop|
+git pull origin develop|
+
+# Create PR|
+gh pr create \
+  --base main \
+  --head develop \
+  --title "web app style with chat interface and layout" \
+  --body "## Features Added
+- ✅ Complete UI redesign with Soft Futurism theme
+- ✅ Chat interface with auto-focus and reduced whitespace
+- ✅ Redis connection fixed (using Redis Labs)
+- ✅ Email service (Wholesale + Contact forms via Resend)
+- ✅ Google OAuth with proper callback URL
+- ✅ Comprehensive API tests (34 tests passing)
+- ✅ Favicon matching website theme
+- ✅ Performance optimizations (preloading, reduced page load delay)
+- ✅ Health check script (npm run health-check)
+- ✅ Environment variable management (.env setup)
+- ✅ API documentation (Swagger at /api-docs)
+
+## Testing
+- ✅ All 34 tests passing
+- ✅ Health check passes (Supabase, Redis, Hugging Face, Resend)
+- ✅ Build succeeds
+
+## Deployment Ready
+- ✅ Code pushed to develop branch
+- ✅ Ready for Vercel deployment via Dashboard"|
+```
+
+### Via GitHub Web:|
+1. Go to: https://github.com/fullsolution-vip/full-solution-vip-ui/compare/main...develop|
+2. Click "Create pull request"|
+3. Title: `web app style with chat interface and layout`|
+4. Click "Create pull request"|
+5. Merge after checks pass ✅|
+```
+
+---
+
+## Quick Commands|
+
+```bash|
+# Development|
+npm run dev              # Start dev server|
+npm run stop             # Kill all running processes|
+npm run restart           # Stop + restart dev server|
+npm run health-check     # Test all external services|
+
+# Testing|
+npm test                 # Run all 34 tests|
+npm run test:watch       # Watch mode|
+
+# Build & Deploy|
+npm run build             # Build for production|
+# Deploy: https://vercel.com/new → Import Repo → Add Env Vars → Deploy|
+```
