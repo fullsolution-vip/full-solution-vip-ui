@@ -4,7 +4,7 @@ import { logger } from "@/lib/logger";
 import { emailService } from "@/lib/email";
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY || "";
-const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
+const GROQ_MODEL = process.env.GROQ_MODEL || "groq/compound-mini";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "frederick1989@gmail.com";
 
 export interface ChatMessage {
