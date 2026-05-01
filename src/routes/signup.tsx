@@ -59,7 +59,7 @@ export function SignupPage() {
 
     try {
       const supabase = getSupabase();
-      const { error: authError } = await supabase.auth.signUp({
+      const { data, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
@@ -72,6 +72,20 @@ export function SignupPage() {
 
       if (authError) {
         throw new Error(authError.message);
+      }
+
+      // Send welcome email via API
+      try {
+        await fetch("/api/email/welcome", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: `${formData.firstName} ${formData.lastName}`.trim(),
+            email: formData.email,
+          }),
+        });
+      } catch (e) {
+        console.warn("Welcome email failed to send:", e);
       }
 
       // Show success message or redirect
@@ -89,10 +103,11 @@ export function SignupPage() {
 
     try {
       const supabase = getSupabase();
+      const redirectTo = import.meta.env.VITE_OAUTH_CALLBACK_URL || `${window.location.origin}/auth/callback`;
       const { data, error: authError } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/account`,
+          redirectTo,
           scopes: "email profile",
         },
       });

@@ -20,12 +20,19 @@ export function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    fetch("/api/chat", { method: "POST" })
-      .then((res) => res.json())
-      .then(({ sessionId }) => setSessionId(sessionId));
-  }, []);
+    if (isOpen) {
+      fetch("/api/chat", { method: "POST" })
+        .then((res) => res.json())
+        .then(({ sessionId }) => setSessionId(sessionId))
+        .catch(console.error);
+
+      // Focus input when chat opens
+      setTimeout(() => textareaRef.current?.focus(), 100);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -78,6 +85,8 @@ export function ChatWidget() {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
+      // Re-focus the input after response
+      setTimeout(() => textareaRef.current?.focus(), 100);
     }
   };
 
@@ -95,7 +104,7 @@ export function ChatWidget() {
 
       {isOpen && (
         <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-xl flex flex-col z-50">
-          <CardHeader className="flex flex-row items-center justify-between p-4 border-b">
+          <CardHeader className="flex flex-row items-center justify-between p-3 border-b shrink-0">
             <div className="flex items-center gap-2">
               <Bot className="size-5 text-primary" />
               <CardTitle className="text-base">Full Solution Assistant</CardTitle>
@@ -106,9 +115,9 @@ export function ChatWidget() {
           </CardHeader>
 
           <CardContent className="flex-1 p-0 overflow-hidden">
-            <ScrollArea className="h-full p-4">
+            <ScrollArea className="h-full p-3">
               {messages.length === 0 && (
-                <div className="text-center text-muted-foreground py-8 text-sm">
+                <div className="text-center text-muted-foreground py-4 text-sm">
                   Ask me anything about our products, ingredients, or policies.
                 </div>
               )}
@@ -116,7 +125,7 @@ export function ChatWidget() {
                 <div
                   key={msg.id}
                   className={cn(
-                    "mb-3 flex gap-2",
+                    "mb-2 flex gap-2",
                     msg.role === "user" ? "justify-end" : "justify-start",
                   )}
                 >
@@ -127,7 +136,7 @@ export function ChatWidget() {
                   )}
                   <div
                     className={cn(
-                      "max-w-[75%] rounded-lg p-2.5 text-sm",
+                      "max-w-[75%] rounded-lg p-2 text-sm",
                       msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted",
                     )}
                   >
@@ -141,12 +150,12 @@ export function ChatWidget() {
                 </div>
               ))}
               {loading && (
-                <div className="flex gap-2 mb-3">
+                <div className="flex gap-2 mb-2">
                   <div className="size-6 rounded-full bg-primary/10 flex items-center justify-center">
                     <Bot className="size-3 text-primary" />
                   </div>
-                  <div className="bg-muted rounded-lg p-2.5">
-                    <Loader2 className="size-4 animate-spin" />
+                  <div className="bg-muted rounded-lg p-2">
+                    <Loader2 className="size-3 animate-spin" />
                   </div>
                 </div>
               )}
@@ -154,12 +163,13 @@ export function ChatWidget() {
             </ScrollArea>
           </CardContent>
 
-          <form onSubmit={handleSubmit} className="p-3 border-t flex gap-2">
+          <form onSubmit={handleSubmit} className="p-2 border-t flex gap-2 shrink-0">
             <Textarea
+              ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
-              className="flex-1 min-h-[40px] max-h-[80px] text-sm"
+              className="flex-1 min-h-[36px] max-h-[60px] text-sm py-1.5"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -167,8 +177,8 @@ export function ChatWidget() {
                 }
               }}
             />
-            <Button type="submit" size="icon" disabled={loading || !input.trim()}>
-              <Send className="size-4" />
+            <Button type="submit" size="icon" disabled={loading || !input.trim()} className="h-9 w-9 shrink-0">
+              <Send className="size-3.5" />
             </Button>
           </form>
         </Card>

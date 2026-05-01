@@ -12,12 +12,20 @@ export interface KnowledgeChunk {
 }
 
 export class RetrievalService {
-  private supabase: SupabaseClient;
+  private supabase: SupabaseClient | null = null;
 
-  constructor() {
+  private getSupabaseClient(): SupabaseClient {
+    if (this.supabase) return this.supabase;
+
     const supabaseUrl = process.env.SUPABASE_URL || "";
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY || "";
+    
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error("Supabase URL and service key are required");
+    }
+
     this.supabase = createClient(supabaseUrl, supabaseKey);
+    return this.supabase;
   }
 
   async similaritySearch(
@@ -27,8 +35,9 @@ export class RetrievalService {
   ): Promise<KnowledgeChunk[]> {
     try {
       const embedding = await embeddingService.generateEmbedding(query);
+      const supabase = this.getSupabaseClient();
 
-      const { data, error } = await this.supabase.rpc("match_knowledge", {
+      const { data, error } = await supabase.rpc("match_knowledge", {
         query_embedding: embedding,
         match_threshold: matchThreshold,
         match_count: matchCount,
@@ -60,8 +69,9 @@ export class RetrievalService {
     metadata: Record<string, unknown> = {},
   ): Promise<void> {
     const contentHash = embeddingService.hashText(content);
+    const supabase = this.getSupabaseClient();
 
-    const { error } = await this.supabase.from("chatbot_knowledge_base").upsert(
+    const { error } = await supabase.from("chatbot_knowledge_base").upsert(
       {
         content,
         content_hash: contentHash,
@@ -80,7 +90,8 @@ export class RetrievalService {
   }
 
   async getSampleRows(limit = 5): Promise<Array<Record<string, unknown>>> {
-    const { data, error } = await this.supabase
+    const supabase = this.getSupabaseClient();
+    const { data, error } = await supabase
       .from("chatbot_knowledge_base")
       .select("id, source_file, chunk_index, content, created_at")
       .limit(limit);
@@ -94,7 +105,8 @@ export class RetrievalService {
   }
 
   async getChunkByHash(hash: string): Promise<boolean> {
-    const { data, error } = await this.supabase
+    const supabase = this.getSupabaseClient();
+    const { data, error } = await supabase
       .from("chatbot_knowledge_base")
       .select("id")
       .eq("content_hash", hash)
@@ -104,7 +116,8 @@ export class RetrievalService {
   }
 
   async getKnowledgeCount(): Promise<number> {
-    const { count, error } = await this.supabase
+    const supabase = this.getSupabaseClient();
+    const { count, error } = await supabase
       .from("chatbot_knowledge_base")
       .select("*", { count: "exact", head: true });
 
@@ -120,7 +133,8 @@ export class RetrievalService {
     const cached = await cacheService.getJSON<Array<{ role: string; content: string }>>(cacheKey);
     if (cached) return cached;
 
-    const { data, error } = await this.supabase
+    const supabase = this.getSupabaseClient();
+    const { data, error } = await supabase
       .from("chatbot_messages")
       .select("role, content")
       .eq("session_id", sessionId)
@@ -144,7 +158,8 @@ export class RetrievalService {
     content: string,
     metadata: Record<string, unknown> = {},
   ): Promise<void> {
-    const { error } = await this.supabase.from("chatbot_messages").insert({
+    const supabase = this.getSupabaseClient();
+    const { error } = await supabase.from("chatbot_messages").insert({
       session_id: sessionId,
       role,
       content,

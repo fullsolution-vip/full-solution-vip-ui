@@ -52,10 +52,11 @@ export function LoginPage() {
 
     try {
       const supabase = getSupabase();
+      const redirectTo = import.meta.env.VITE_OAUTH_CALLBACK_URL || `${window.location.origin}/auth/callback`;
       const { data, error: authError } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/account`,
+          redirectTo,
           scopes: "email profile",
         },
       });

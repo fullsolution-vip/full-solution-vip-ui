@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { ContactForm } from "@/components/site/ContactForm";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -55,50 +56,7 @@ function ContactPage() {
         </div>
       </div>
 
-      <form
-        className="rounded-3xl border border-border bg-card p-8 md:p-10 space-y-4 self-start"
-        onSubmit={(e) => {
-          e.preventDefault();
-          alert("Message sent — we'll be in touch shortly.");
-        }}
-      >
-        <div className="grid sm:grid-cols-2 gap-4">
-          <input
-            required
-            placeholder="Full name"
-            className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-          />
-          <input
-            required
-            placeholder="Company"
-            className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-          />
-        </div>
-        <input
-          required
-          type="email"
-          placeholder="Work email"
-          className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-        />
-        <select className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40">
-          <option>Wholesale enquiry</option>
-          <option>Private label</option>
-          <option>Bespoke development</option>
-          <option>Press / media</option>
-          <option>Other</option>
-        </select>
-        <textarea
-          rows={5}
-          placeholder="How can we help?"
-          className="w-full rounded-3xl border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-        />
-        <button
-          type="submit"
-          className="w-full rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-medium hover:opacity-90 transition"
-        >
-          Send message
-        </button>
-      </form>
+      <ContactForm />
     </section>
   );
 }

@@ -1,47 +1,54 @@
-"use client";
-
 import * as React from "react";
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
-
 import { cn } from "@/lib/utils";
 
-const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Root
-    ref={ref}
-    className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)}
-    {...props}
-  />
-));
-Avatar.displayName = AvatarPrimitive.Root.displayName;
+type AvatarProps = React.ComponentProps<"span"> & {
+  src?: string;
+  alt?: string;
+  fallback?: React.ReactNode;
+};
 
-const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
-    {...props}
-  />
-));
-AvatarImage.displayName = AvatarPrimitive.Image.displayName;
+const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
+  ({ className, src, alt, fallback, ...props }, ref) => {
+    const [imgError, setImgError] = React.useState(false);
 
-const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className,
-    )}
-    {...props}
-  />
-));
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
+    return (
+      <span
+        ref={ref}
+        className={cn(
+          "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+          className
+        )}
+        {...props}
+      >
+        {src && !imgError ? (
+          <img
+            src={src}
+            alt={alt}
+            className="h-full w-full object-cover"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <span className="flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-medium">
+            {fallback}
+          </span>
+        )}
+      </span>
+    );
+  }
+);
+Avatar.displayName = "Avatar";
 
-export { Avatar, AvatarImage, AvatarFallback };
+type AvatarFallbackProps = React.ComponentProps<"span">;
+
+const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackProps>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cn("flex h-full w-full items-center justify-center", className)}
+      {...props}
+    />
+  )
+);
+AvatarFallback.displayName = "AvatarFallback";
+
+export { Avatar, AvatarFallback };

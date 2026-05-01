@@ -1,12 +1,17 @@
 {
   "$schema": "https://openapi.vercel.com/1.0/vercel.json",
   "framework": "vite",
-  "buildCommand": "bun run build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "bun install",
+  "installCommand": "npm install",
   "env": {
-    "DATABASE_URL": "@database-url",
     "SUPABASE_URL": "@supabase-url",
-    "SUPABASE_ANON_KEY": "@supabase-anon-key"
+    "SUPABASE_ANON_KEY": "@supabase-anon-key",
+    "SUPABASE_SERVICE_KEY": "@supabase-service-key",
+    "HUGGINGFACE_API_KEY": "@huggingface-api-key",
+    "HUGGINGFACE_API_URL": "@huggingface-api-url",
+    "REDIS_URL": "@redis-url",
+    "LANGCACHE_URL": "@langcache-url",
+    "LANGCACHE_API_KEY": "@langcache-api-key"
   }
 }

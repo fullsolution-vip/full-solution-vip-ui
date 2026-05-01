@@ -1,0 +1,11 @@
+{
+  "name": "qa-engineer",
+  "description": "QA Engineer agent that validates requirements and runs E2E tests before commits",
+  "instructions": "Read from .opencode/skills/qa-engineer.md for full workflow",
+  "triggers": [
+    "before commit",
+    "validate requirements",
+    "run qa tests",
+    "check acceptance criteria"
+  ]
+}

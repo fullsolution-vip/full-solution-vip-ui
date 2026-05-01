@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
+import { useState } from "react";
+import { emailService } from "@/lib/email";
 
 export const Route = createFileRoute("/wholesale")({
   head: () => ({
@@ -21,6 +23,46 @@ export const Route = createFileRoute("/wholesale")({
 });
 
 function WholesalePage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await emailService.notifyLead({
+        type: "application",
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message,
+      });
+
+      if (result.success) {
+        setSuccess(true);
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to submit request");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <section className="container-page py-20 md:py-28">
@@ -104,43 +146,68 @@ function WholesalePage() {
                 and a sample kit within 48 hours.
               </p>
             </div>
-            <form
-              className="space-y-4"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Thank you — we'll be in touch shortly.");
-              }}
-            >
-              <div className="grid sm:grid-cols-2 gap-4">
-                <input
-                  required
-                  placeholder="Full name"
-                  className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-                />
-                <input
-                  required
-                  placeholder="Company"
-                  className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-                />
+            {success ? (
+              <div className="rounded-3xl border border-green-200 bg-green-50 p-8 md:p-10 text-center">
+                <Check className="mx-auto mb-4 h-12 w-12 text-green-600" />
+                <h3 className="text-xl font-semibold text-green-900">Request Submitted!</h3>
+                <p className="mt-2 text-sm text-green-700">
+                  Thank you {formData.name}! We'll send our trade pack within 48 hours.
+                </p>
+                <p className="mt-4 text-xs text-green-600">
+                  A confirmation has been sent to {formData.email}
+                </p>
               </div>
-              <input
-                required
-                type="email"
-                placeholder="Work email"
-                className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-              />
-              <textarea
-                rows={4}
-                placeholder="Tell us about your category"
-                className="w-full rounded-3xl border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
-              />
-              <button
-                type="submit"
-                className="w-full sm:w-auto rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-medium hover:opacity-90 transition"
-              >
-                Request trade pack
-              </button>
-            </form>
+            ) : (
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <input
+                    required
+                    name="name"
+                    placeholder="Full name"
+                    className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                  <input
+                    required
+                    name="company"
+                    placeholder="Company"
+                    className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
+                    value={formData.company}
+                    onChange={handleChange}
+                  />
+                </div>
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  placeholder="Work email"
+                  className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                <textarea
+                  rows={4}
+                  name="message"
+                  placeholder="Tell us about your category"
+                  className="w-full rounded-3xl border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"
+                  value={formData.message}
+                  onChange={handleChange}
+                />
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-600">{error}</p>
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full sm:w-auto rounded-full bg-primary text-primary-foreground px-7 py-3.5 text-sm font-medium hover:opacity-90 transition disabled:opacity-50"
+                >
+                  {loading ? "Submitting..." : "Request trade pack"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>

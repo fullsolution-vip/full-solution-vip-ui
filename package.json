@@ -12,11 +12,15 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "stop": "pkill -f vite || true; pkill -f 'node.*vite' || true",
+    "restart": "npm run stop && npm run dev",
+    "health-check": "bash scripts/health-check.sh"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
     "@hookform/resolvers": "^5.2.2",
+    "@isaacs/brace-expansion": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -63,6 +67,7 @@
     "react-hook-form": "^7.71.2",
     "react-resizable-panels": "^4.6.5",
     "recharts": "^2.15.4",
+    "resend": "^6.12.2",
     "sonner": "^2.0.7",
     "swagger-ui-dist": "^5.32.5",
     "tailwind-merge": "^3.5.0",
@@ -82,6 +87,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "dotenv": "^17.4.2",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",

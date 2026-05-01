@@ -41,8 +41,9 @@ export const Route = createFileRoute("/api/health")({
             (s) => s === "ok" || s === "configured",
           );
 
-          return Response.json(health, {
+          return new Response(JSON.stringify(health), {
             status: allHealthy ? 200 : 503,
+            headers: { "Content-Type": "application/json" },
           });
         } catch (error) {
           logger.error("health-check", "Health check failed", error);

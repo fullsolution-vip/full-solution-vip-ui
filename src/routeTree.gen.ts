@@ -13,18 +13,26 @@ import { Route as WholesaleRouteImport } from './routes/wholesale'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ScienceRouteImport } from './routes/science'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IngredientsRouteImport } from './routes/ingredients'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ApiDocsRouteImport } from './routes/api-docs'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as ApiLeadsRouteImport } from './routes/api/leads'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as ApiChatbotInitRouteImport } from './routes/api/chatbot-init'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiTestCleanupRouteImport } from './routes/api/test/cleanup'
+import { Route as ApiEmailWelcomeRouteImport } from './routes/api/email/welcome'
+import { Route as ApiAdminUsersRouteImport } from './routes/api/admin/users'
 
 const WholesaleRoute = WholesaleRouteImport.update({
   id: '/wholesale',
@@ -44,6 +52,11 @@ const ScienceRoute = ScienceRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -76,6 +89,11 @@ const ApiDocsRoute = ApiDocsRouteImport.update({
   path: '/api-docs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccountRoute = AccountRouteImport.update({
   id: '/account',
   path: '/account',
@@ -91,9 +109,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLeadsRoute = ApiLeadsRouteImport.update({
+  id: '/api/leads',
+  path: '/api/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
   id: '/api/health',
   path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatbotInitRoute = ApiChatbotInitRouteImport.update({
@@ -106,61 +139,100 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTestCleanupRoute = ApiTestCleanupRouteImport.update({
+  id: '/api/test/cleanup',
+  path: '/api/test/cleanup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiEmailWelcomeRoute = ApiEmailWelcomeRouteImport.update({
+  id: '/api/email/welcome',
+  path: '/api/email/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminUsersRoute = ApiAdminUsersRouteImport.update({
+  id: '/api/admin/users',
+  path: '/api/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRoute
   '/api-docs': typeof ApiDocsRoute
   '/categories': typeof CategoriesRoute
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/ingredients': typeof IngredientsRoute
   '/login': typeof LoginRoute
+  '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/science': typeof ScienceRoute
   '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
   '/api/chat': typeof ApiChatRoute
   '/api/chatbot-init': typeof ApiChatbotInitRoute
+  '/api/contact': typeof ApiContactRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/leads': typeof ApiLeadsRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
+  '/api/email/welcome': typeof ApiEmailWelcomeRoute
+  '/api/test/cleanup': typeof ApiTestCleanupRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRoute
   '/api-docs': typeof ApiDocsRoute
   '/categories': typeof CategoriesRoute
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/ingredients': typeof IngredientsRoute
   '/login': typeof LoginRoute
+  '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/science': typeof ScienceRoute
   '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
   '/api/chat': typeof ApiChatRoute
   '/api/chatbot-init': typeof ApiChatbotInitRoute
+  '/api/contact': typeof ApiContactRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/leads': typeof ApiLeadsRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
+  '/api/email/welcome': typeof ApiEmailWelcomeRoute
+  '/api/test/cleanup': typeof ApiTestCleanupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRoute
   '/api-docs': typeof ApiDocsRoute
   '/categories': typeof CategoriesRoute
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/ingredients': typeof IngredientsRoute
   '/login': typeof LoginRoute
+  '/portal': typeof PortalRoute
   '/products': typeof ProductsRoute
   '/science': typeof ScienceRoute
   '/signup': typeof SignupRoute
   '/wholesale': typeof WholesaleRoute
   '/api/chat': typeof ApiChatRoute
   '/api/chatbot-init': typeof ApiChatbotInitRoute
+  '/api/contact': typeof ApiContactRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/leads': typeof ApiLeadsRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/api/admin/users': typeof ApiAdminUsersRoute
+  '/api/email/welcome': typeof ApiEmailWelcomeRoute
+  '/api/test/cleanup': typeof ApiTestCleanupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -168,74 +240,106 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/account'
+    | '/admin'
     | '/api-docs'
     | '/categories'
     | '/chat'
     | '/contact'
     | '/ingredients'
     | '/login'
+    | '/portal'
     | '/products'
     | '/science'
     | '/signup'
     | '/wholesale'
     | '/api/chat'
     | '/api/chatbot-init'
+    | '/api/contact'
     | '/api/health'
+    | '/api/leads'
+    | '/auth/callback'
+    | '/api/admin/users'
+    | '/api/email/welcome'
+    | '/api/test/cleanup'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/account'
+    | '/admin'
     | '/api-docs'
     | '/categories'
     | '/chat'
     | '/contact'
     | '/ingredients'
     | '/login'
+    | '/portal'
     | '/products'
     | '/science'
     | '/signup'
     | '/wholesale'
     | '/api/chat'
     | '/api/chatbot-init'
+    | '/api/contact'
     | '/api/health'
+    | '/api/leads'
+    | '/auth/callback'
+    | '/api/admin/users'
+    | '/api/email/welcome'
+    | '/api/test/cleanup'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/account'
+    | '/admin'
     | '/api-docs'
     | '/categories'
     | '/chat'
     | '/contact'
     | '/ingredients'
     | '/login'
+    | '/portal'
     | '/products'
     | '/science'
     | '/signup'
     | '/wholesale'
     | '/api/chat'
     | '/api/chatbot-init'
+    | '/api/contact'
     | '/api/health'
+    | '/api/leads'
+    | '/auth/callback'
+    | '/api/admin/users'
+    | '/api/email/welcome'
+    | '/api/test/cleanup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
+  AdminRoute: typeof AdminRoute
   ApiDocsRoute: typeof ApiDocsRoute
   CategoriesRoute: typeof CategoriesRoute
   ChatRoute: typeof ChatRoute
   ContactRoute: typeof ContactRoute
   IngredientsRoute: typeof IngredientsRoute
   LoginRoute: typeof LoginRoute
+  PortalRoute: typeof PortalRoute
   ProductsRoute: typeof ProductsRoute
   ScienceRoute: typeof ScienceRoute
   SignupRoute: typeof SignupRoute
   WholesaleRoute: typeof WholesaleRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiChatbotInitRoute: typeof ApiChatbotInitRoute
+  ApiContactRoute: typeof ApiContactRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  ApiLeadsRoute: typeof ApiLeadsRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
+  ApiAdminUsersRoute: typeof ApiAdminUsersRoute
+  ApiEmailWelcomeRoute: typeof ApiEmailWelcomeRoute
+  ApiTestCleanupRoute: typeof ApiTestCleanupRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -266,6 +370,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -310,6 +421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDocsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account': {
       id: '/account'
       path: '/account'
@@ -331,11 +449,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/leads': {
+      id: '/api/leads'
+      path: '/api/leads'
+      fullPath: '/api/leads'
+      preLoaderRoute: typeof ApiLeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/health': {
       id: '/api/health'
       path: '/api/health'
       fullPath: '/api/health'
       preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chatbot-init': {
@@ -352,6 +491,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/test/cleanup': {
+      id: '/api/test/cleanup'
+      path: '/api/test/cleanup'
+      fullPath: '/api/test/cleanup'
+      preLoaderRoute: typeof ApiTestCleanupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/email/welcome': {
+      id: '/api/email/welcome'
+      path: '/api/email/welcome'
+      fullPath: '/api/email/welcome'
+      preLoaderRoute: typeof ApiEmailWelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/users': {
+      id: '/api/admin/users'
+      path: '/api/admin/users'
+      fullPath: '/api/admin/users'
+      preLoaderRoute: typeof ApiAdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -359,19 +519,27 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
+  AdminRoute: AdminRoute,
   ApiDocsRoute: ApiDocsRoute,
   CategoriesRoute: CategoriesRoute,
   ChatRoute: ChatRoute,
   ContactRoute: ContactRoute,
   IngredientsRoute: IngredientsRoute,
   LoginRoute: LoginRoute,
+  PortalRoute: PortalRoute,
   ProductsRoute: ProductsRoute,
   ScienceRoute: ScienceRoute,
   SignupRoute: SignupRoute,
   WholesaleRoute: WholesaleRoute,
   ApiChatRoute: ApiChatRoute,
   ApiChatbotInitRoute: ApiChatbotInitRoute,
+  ApiContactRoute: ApiContactRoute,
   ApiHealthRoute: ApiHealthRoute,
+  ApiLeadsRoute: ApiLeadsRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
+  ApiAdminUsersRoute: ApiAdminUsersRoute,
+  ApiEmailWelcomeRoute: ApiEmailWelcomeRoute,
+  ApiTestCleanupRoute: ApiTestCleanupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

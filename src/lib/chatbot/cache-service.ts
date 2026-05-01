@@ -7,30 +7,96 @@ const REDIS_URL = process.env.REDIS_URL || "";
 export class CacheService {
   private redis: Redis | null = null;
   private useLangcache = false;
+  private initialized = false;
 
   constructor() {
     if (typeof window !== "undefined") return;
+    this.init();
+  }
+
+  private async init() {
+    if (this.initialized) return;
+    this.initialized = true;
 
     try {
-      // Dynamic import for server-side only
-      import("ioredis")
-        .then((module) => {
-          const Redis = module.default || module;
-          if (LANGCACHE_URL && LANGCACHE_API_KEY) {
-            this.redis = new Redis(LANGCACHE_URL, {
-              password: LANGCACHE_API_KEY,
-              tls: {},
-            });
-            this.useLangcache = true;
-          } else if (REDIS_URL) {
-            this.redis = new Redis(REDIS_URL);
-          }
-        })
-        .catch((err) => {
-          console.warn("Redis cache unavailable:", err);
+      const module = await import("ioredis").catch(() => null);
+      if (!module) {
+        console.warn("ioredis module not available");
+        return;
+      }
+
+      const Redis = module.default || module;
+      
+      // Try Redis Labs first (it's confirmed working)
+      if (REDIS_URL) {
+        console.log("🔴 Redis: Connecting to Redis Labs...");
+        this.redis = new Redis(REDIS_URL);
+        this.setupRedisEvents();
+        return;
+      }
+      
+      // Try LangCache (if Redis Labs not available)
+      if (LANGCACHE_URL) {
+        const password = LANGCACHE_API_KEY || "";
+        console.log("🔴 Redis: Connecting to LangCache...");
+        this.redis = new Redis(LANGCACHE_URL, {
+          password: password || undefined,
+          tls: LANGCACHE_URL.startsWith("rediss://") ? {} : undefined,
         });
+        this.useLangcache = true;
+        this.setupRedisEvents();
+        return;
+      }
+
+      console.log("⚠️ Redis: No URL configured - caching disabled");
     } catch (error) {
       console.warn("Redis cache unavailable:", error);
+      this.redis = null;
+    }
+  }
+
+  private setupRedisEvents() {
+    if (!this.redis) return;
+
+    this.redis.on("connect", () => {
+      console.log("✓ Redis: Connected successfully");
+    });
+
+    this.redis.on("error", (err) => {
+      console.warn("Redis connection error (non-fatal):", err.message);
+    });
+  }
+
+      const Redis = module.default || module;
+      
+      // Try LangCache first (uses API key as password)
+      if (LANGCACHE_URL) {
+        const password = LANGCACHE_API_KEY || "";
+        this.redis = new Redis(LANGCACHE_URL, {
+          password: password || undefined,
+          tls: LANGCACHE_URL.startsWith("rediss://") ? {} : undefined,
+        });
+        this.useLangcache = true;
+        console.log("✓ Redis: Connecting to LangCache...");
+      } else if (REDIS_URL) {
+        this.redis = new Redis(REDIS_URL);
+        console.log("✓ Redis: Connecting to Redis...");
+      } else {
+        console.log("⚠️ Redis: No URL configured");
+        return;
+      }
+
+      // Test connection
+      this.redis.on("connect", () => {
+        console.log("✓ Redis: Connected successfully");
+      });
+
+      this.redis.on("error", (err) => {
+        console.warn("Redis connection error:", err.message);
+      });
+    } catch (error) {
+      console.warn("Redis cache unavailable:", error);
+      this.redis = null;
     }
   }
 
