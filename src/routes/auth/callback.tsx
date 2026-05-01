@@ -18,7 +18,7 @@ function AuthCallback() {
 
         if (error || !data.session) {
           console.error("Auth callback error:", error);
-          navigate({ to: "/login?error=auth_failed" });
+          window.location.href = "/login?error=auth_failed";
           return;
         }
 
@@ -26,7 +26,7 @@ function AuthCallback() {
         navigate({ to: "/account" });
       } catch (err) {
         console.error("Auth callback exception:", err);
-        navigate({ to: "/login?error=auth_failed" });
+        window.location.href = "/login?error=auth_failed";
       }
     };
 

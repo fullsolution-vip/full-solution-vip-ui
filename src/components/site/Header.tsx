@@ -64,7 +64,7 @@ export function Header() {
             <Link
               key={l.to}
               to={l.to}
-              preload={true}
+              preload="intent"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               activeProps={{ className: "text-foreground font-medium" }}
               activeOptions={{ exact: l.to === "/" }}
@@ -158,7 +158,7 @@ export function Header() {
               key={l.to}
               to={l.to}
               onClick={() => setOpen(false)}
-              preload={true}
+              preload="intent"
               className="py-3 text-sm text-muted-foreground"
               activeProps={{ className: "text-foreground font-medium" }}
               activeOptions={{ exact: l.to === "/" }}

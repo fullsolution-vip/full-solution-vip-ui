@@ -107,7 +107,14 @@ function AdminPage() {
   const toggleUserRole = async (userId: string, currentRole: string) => {
     const newRole = currentRole === "admin" ? "client" : "admin";
     try {
-      await setUserRole({ userId, role: newRole as "admin" | "client" });
+      // Call the API endpoint directly since setUserRole is a server function
+      const response = await fetch("/api/admin/set-role", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, role: newRole }),
+      });
+      
+      if (!response.ok) throw new Error("Failed to update role");
       loadUsers();
     } catch (err) {
       alert(`Failed to update role: ${err}`);

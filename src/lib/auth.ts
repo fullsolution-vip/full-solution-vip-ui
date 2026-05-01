@@ -12,7 +12,8 @@ export interface AuthSession {
   isAuthenticated: boolean;
 }
 
-export const getSession = createServerFn({ method: "GET" }).handler(async ({ request }) => {
+export const getSession = createServerFn({ method: "GET" }).handler(async (ctx: any) => {
+  const request = ctx.request || ctx.req;
   const supabase = getSupabaseServerClient(request);
   const { data, error } = await supabase.auth.getUser();
 
@@ -33,7 +34,8 @@ export const getSession = createServerFn({ method: "GET" }).handler(async ({ req
   };
 });
 
-export const signOut = createServerFn({ method: "POST" }).handler(async ({ request }) => {
+export const signOut = createServerFn({ method: "POST" }).handler(async (ctx: any) => {
+  const request = ctx.request || ctx.req;
   const supabase = getSupabaseServerClient(request);
   const { error } = await supabase.auth.signOut();
 
@@ -45,18 +47,17 @@ export const signOut = createServerFn({ method: "POST" }).handler(async ({ reque
 });
 
 // Admin-only: set user role (requires service role key)
-export const setUserRole = createServerFn({ method: "POST" })
-  .handler(async (ctx) => {
-    const input = ctx.data as { userId: string; role: "admin" | "client" };
-    if (!input?.userId || !input?.role) {
-      throw new Error("Invalid input: userId and role required");
-    }
-    const { userId, role } = input;
-    const supabase = getSupabaseServiceClient();
-    const { error } = await supabase.auth.admin.updateUserById(userId, {
-      user_metadata: { role },
-    });
-
-    if (error) throw new Error(error.message);
-    return { success: true };
+export const setUserRole = createServerFn({ method: "POST" }).handler(async (ctx: any) => {
+  const input = ctx.data as { userId: string; role: "admin" | "client" } | undefined;
+  if (!input?.userId || !input?.role) {
+    throw new Error("Invalid input: userId and role required");
+  }
+  const { userId, role } = input;
+  const supabase = getSupabaseServiceClient();
+  const { error } = await supabase.auth.admin.updateUserById(userId, {
+    user_metadata: { role },
   });
+
+  if (error) throw new Error(error.message);
+  return { success: true };
+});

@@ -14,7 +14,7 @@ export interface EmailTemplate {
   to: string | string[];
   subject: string;
   html: string;
-  reply_to?: string;
+  replyTo?: string;
 }
 
 export const emailService = {
@@ -30,7 +30,7 @@ export const emailService = {
         to: template.to,
         subject: template.subject,
         html: template.html,
-        reply_to: template.reply_to,
+        replyTo: template.replyTo,
       });
 
       if (result.error) {
@@ -76,7 +76,7 @@ export const emailService = {
       to: ADMIN_EMAIL,
       subject: `🚀 New ${typeLabels[data.type]}: ${data.name}`,
       html,
-      reply_to: data.email,
+      replyTo: data.email,
     });
   },
 
@@ -128,7 +128,7 @@ export const emailService = {
       to: ADMIN_EMAIL,
       subject: `📧 Contact Form: ${data.subject}`,
       html,
-      reply_to: data.email,
+      replyTo: data.email,
     });
   },
 };
