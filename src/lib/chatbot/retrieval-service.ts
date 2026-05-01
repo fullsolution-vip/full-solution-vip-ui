@@ -80,6 +80,20 @@ export class RetrievalService {
     }
   }
 
+  async getSampleRows(limit = 5): Promise<any[]> {
+    const { data, error } = await this.supabase
+      .from("chatbot_knowledge_base")
+      .select("id, source_file, chunk_index, content, created_at")
+      .limit(limit);
+    
+    if (error) {
+      logger.error("retrieval-service", "Failed to get sample rows", error);
+      return [];
+    }
+    
+    return data || [];
+  }
+
   async getChunkByHash(hash: string): Promise<boolean> {
     const { data, error } = await this.supabase
       .from("chatbot_knowledge_base")

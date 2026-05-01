@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Full Solution API",
+    "version": "1.0.0",
+    "description": "API documentation for Full Solution chatbot and services"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    },
+    {
+      "url": "https://full-solution-vip-ui.vercel.app",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/chat": {
+      "post": {
+        "summary": "Send a message to the chatbot",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message", "sessionId"],
+                "properties": {
+                  "message": { "type": "string", "example": "Who is the lead contact?" },
+                  "sessionId": { "type": "string", "example": "session-123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chat response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" },
+                    "sources": { "type": "array", "items": { "type": "string" } },
+                    "cached": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chatbot-init": {
+      "post": {
+        "summary": "Force re-initialize knowledge base (re-chunk and embed)",
+        "responses": {
+          "200": {
+            "description": "Initialization result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" },
+                    "rows": { "type": "array" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Check system health (Supabase, Hugging Face, Redis)",
+        "responses": {
+          "200": {
+            "description": "Health status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "services": {
+                      "type": "object",
+                      "properties": {
+                        "supabase": { "type": "string" },
+                        "huggingface": { "type": "string" },
+                        "redis": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

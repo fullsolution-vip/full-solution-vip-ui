@@ -18,6 +18,7 @@ import { Route as IngredientsRouteImport } from './routes/ingredients'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as ApiDocsRouteImport } from './routes/api-docs'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -67,6 +68,11 @@ const CategoriesRoute = CategoriesRouteImport.update({
   path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDocsRoute = ApiDocsRouteImport.update({
+  id: '/api-docs',
+  path: '/api-docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccountRoute = AccountRouteImport.update({
   id: '/account',
   path: '/account',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/api-docs': typeof ApiDocsRoute
   '/categories': typeof CategoriesRoute
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/api-docs': typeof ApiDocsRoute
   '/categories': typeof CategoriesRoute
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/api-docs': typeof ApiDocsRoute
   '/categories': typeof CategoriesRoute
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/account'
+    | '/api-docs'
     | '/categories'
     | '/chat'
     | '/contact'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/account'
+    | '/api-docs'
     | '/categories'
     | '/chat'
     | '/contact'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/account'
+    | '/api-docs'
     | '/categories'
     | '/chat'
     | '/contact'
@@ -175,6 +187,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
+  ApiDocsRoute: typeof ApiDocsRoute
   CategoriesRoute: typeof CategoriesRoute
   ChatRoute: typeof ChatRoute
   ContactRoute: typeof ContactRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api-docs': {
+      id: '/api-docs'
+      path: '/api-docs'
+      fullPath: '/api-docs'
+      preLoaderRoute: typeof ApiDocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account': {
       id: '/account'
       path: '/account'
@@ -279,6 +299,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
+  ApiDocsRoute: ApiDocsRoute,
   CategoriesRoute: CategoriesRoute,
   ChatRoute: ChatRoute,
   ContactRoute: ContactRoute,
