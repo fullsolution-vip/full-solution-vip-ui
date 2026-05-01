@@ -23,11 +23,17 @@ describe("Environment Configuration Tests", () => {
     expect(apiKey?.startsWith("re_")).toBe(true);
   });
 
-  it("should have Hugging Face API key configured", () => {
-    const apiKey = process.env.HUGGINGFACE_API_KEY;
+  it("should have Groq API key configured", () => {
+    const apiKey = process.env.GROQ_API_KEY;
     expect(apiKey).toBeDefined();
     expect(apiKey).not.toBe("");
-    expect(apiKey?.startsWith("hf_")).toBe(true);
+    expect(apiKey?.startsWith("gsk_")).toBe(true);
+  });
+
+  it("should have Groq model configured", () => {
+    const model = process.env.GROQ_MODEL;
+    expect(model).toBeDefined();
+    expect(model).not.toBe("");
   });
 
   it("should have Redis configured", () => {
@@ -136,8 +142,8 @@ describe("Email Service Tests", () => {
 
 describe("Chatbot Service Tests", () => {
   it("should have required environment variables", () => {
-    expect(process.env.HUGGINGFACE_API_KEY).toBeDefined();
-    expect(process.env.HUGGINGFACE_API_URL).toBeDefined();
+    expect(process.env.GROQ_API_KEY).toBeDefined();
+    expect(process.env.GROQ_MODEL).toBeDefined();
   });
 
   it("should generate response with mocked LLM", async () => {
@@ -162,7 +168,7 @@ describe("Chatbot Service Tests", () => {
     }
   }, 10000);
 
-  it("should handle errors gracefully", async () => {
+  it("should handle errors gracefully and escalate via email", async () => {
     const response = await chatService.generateResponse(
       `error-test-${Date.now()}`,
       "This is a test message"
@@ -172,6 +178,11 @@ describe("Chatbot Service Tests", () => {
     expect(response.message).toBeDefined();
     expect(response.sources).toBeDefined();
     expect(Array.isArray(response.sources)).toBe(true);
+    // Should have escalated flag when there's an error
+    if (response.escalated) {
+      expect(response.escalated).toBe(true);
+      expect(response.message).toContain("notified our team");
+    }
   }, 10000);
 });
 

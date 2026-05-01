@@ -1,11 +1,11 @@
 import { retrievalService } from "./retrieval-service";
 import { cacheService } from "./cache-service";
 import { logger } from "@/lib/logger";
+import { emailService } from "@/lib/email";
 
-const HF_API_KEY = process.env.HUGGINGFACE_API_KEY || "";
-const HF_MODEL =
-  process.env.HUGGINGFACE_API_URL ||
-  "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3";
+const GROQ_API_KEY = process.env.GROQ_API_KEY || "";
+const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "frederick1989@gmail.com";
 
 export interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -16,6 +16,7 @@ export interface ChatResponse {
   message: string;
   sources: string[];
   cached: boolean;
+  escalated?: boolean;
 }
 
 export class ChatService {
@@ -89,65 +90,87 @@ ${context}`,
       return result;
     } catch (error) {
       logger.error("chat-service", "Chat generation error:", error);
+
+      // Escalate to admin via email
+      await this.escalateToAdmin(sessionId, userMessage, error);
+
       return {
         message:
-          "I apologize, but I'm having trouble processing your request right now. Please try again later.",
+          "I apologize, but I'm having trouble processing your request right now. I've notified our team and someone will assist you shortly.",
         sources: [],
         cached: false,
+        escalated: true,
       };
     }
   }
 
-  private async callLLM(messages: ChatMessage[]): Promise<string> {
-    const prompt = this.formatMessagesForLLM(messages);
-    logger.debug("chat-service", `Calling Hugging Face API: ${HF_MODEL.slice(0, 50)}...`);
+  private async escalateToAdmin(sessionId: string, userMessage: string, error: unknown) {
+    try {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const subject = `Chat Escalation - Session ${sessionId.slice(0, 8)}`;
+      const html = `
+        <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1 style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Chat Bot Escalation</h1>
+          <div style="background: #f5f5f0; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Session ID:</strong> ${sessionId}</p>
+            <p><strong>User Message:</strong></p>
+            <p style="background: white; padding: 10px; border-radius: 4px;">${userMessage}</p>
+            <p><strong>Error:</strong></p>
+            <p style="color: #dc2626;">${errorMessage}</p>
+            <p><strong>Time:</strong> ${new Date().toLocaleString("en-ZA", { timeZone: "Africa/Johannesburg" })}</p>
+          </div>
+          <p style="color: #666; font-size: 14px;">
+            You can join the chat with the client from your phone. Reply to this email to continue the conversation.
+          </p>
+        </div>
+      `;
 
-    const response = await fetch(`${HF_MODEL}`, {
+      await emailService.send({
+        to: ADMIN_EMAIL,
+        subject,
+        html,
+        replyTo: ADMIN_EMAIL,
+      });
+
+      logger.info("chat-service", "Escalation email sent to admin");
+    } catch (emailError) {
+      logger.error("chat-service", "Failed to send escalation email:", emailError);
+    }
+  }
+
+  private async callLLM(messages: ChatMessage[]): Promise<string> {
+    if (!GROQ_API_KEY) {
+      throw new Error("GROQ_API_KEY not configured");
+    }
+
+    logger.debug("chat-service", `Calling Groq API with model: ${GROQ_MODEL}`);
+
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${HF_API_KEY}`,
+        Authorization: `Bearer ${GROQ_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        inputs: prompt,
-        parameters: {
-          max_new_tokens: 512,
-          temperature: 0.7,
-          top_p: 0.95,
-          return_full_text: false,
-        },
+        model: GROQ_MODEL,
+        messages: messages.map((m) => ({
+          role: m.role,
+          content: m.content,
+        })),
+        max_tokens: 512,
+        temperature: 0.7,
+        top_p: 0.95,
       }),
     });
 
     if (!response.ok) {
-      logger.error("chat-service", `LLM API error: ${response.statusText}`);
-      throw new Error(`LLM API error: ${response.statusText}`);
+      const errorText = await response.text();
+      logger.error("chat-service", `Groq API error: ${response.statusText}`, { errorText });
+      throw new Error(`Groq API error: ${response.statusText}`);
     }
 
     const result = await response.json();
-    return this.extractResponse(result);
-  }
-
-  private formatMessagesForLLM(messages: ChatMessage[]): string {
-    return messages
-      .map((m) => {
-        if (m.role === "system") return `[INST] ${m.content} [/INST]`;
-        if (m.role === "user") return `[INST] ${m.content} [/INST]`;
-        return m.content;
-      })
-      .join("\n");
-  }
-
-  private extractResponse(
-    result: Record<string, unknown> | Array<Record<string, unknown>>,
-  ): string {
-    if (Array.isArray(result) && result[0]?.generated_text) {
-      return String(result[0].generated_text).trim();
-    }
-    if ((result as Record<string, unknown>).generated_text) {
-      return String((result as Record<string, unknown>).generated_text).trim();
-    }
-    return String(result).trim();
+    return result.choices[0]?.message?.content || "No response generated";
   }
 }
 

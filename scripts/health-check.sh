@@ -84,21 +84,25 @@ else
 fi
 echo ""
 
-# Test Hugging Face API
-echo "🤖 Testing Hugging Face API..."
-HF_KEY=$(get_env "HUGGINGFACE_API_KEY")
+# Test Groq API
+echo "🤖 Testing Groq API..."
+GROQ_KEY=$(get_env "GROQ_API_KEY")
+GROQ_MODEL=$(get_env "GROQ_MODEL")
 
-if [ -z "$HF_KEY" ]; then
-    echo -e "${RED}❌ Hugging Face API key not set${NC}"
+if [ -z "$GROQ_KEY" ]; then
+    echo -e "${RED}❌ Groq API key not set${NC}"
 else
     RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
-        "https://api-inference.huggingface.co/models" \
-        -H "Authorization: Bearer $HF_KEY" 2>/dev/null)
+        "https://api.groq.com/openai/v1/models" \
+        -H "Authorization: Bearer $GROQ_KEY" 2>/dev/null)
     
-    if [ "$RESPONSE" = "200" ] || [ "$RESPONSE" = "401" ]; then
-        echo -e "${GREEN}✓ Hugging Face API key is valid${NC}"
+    if [ "$RESPONSE" = "200" ]; then
+        echo -e "${GREEN}✓ Groq API key is valid${NC}"
+        if [ ! -z "$GROQ_MODEL" ]; then
+            echo "   Model: $GROQ_MODEL"
+        fi
     else
-        echo -e "${RED}❌ Hugging Face API test failed (HTTP: $RESPONSE)${NC}"
+        echo -e "${RED}❌ Groq API test failed (HTTP: $RESPONSE)${NC}"
     fi
 fi
 echo ""
