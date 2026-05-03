@@ -6,7 +6,7 @@ let clientSideClient: SupabaseClient | null = null;
 export function getSupabase(): SupabaseClient {
   if (clientSideClient) return clientSideClient;
 
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://your-project.supabase.co";
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_APP_URL?.replace(/\/full-solution-vip-ui\/?/, "") || "https://your-project.supabase.co";
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "your-anon-key";
 
   clientSideClient = createClient(supabaseUrl, supabaseAnonKey, {
