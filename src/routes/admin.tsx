@@ -73,7 +73,7 @@ function AdminPage() {
       console.error("Failed to load users:", err);
       // Try with service role via API
       try {
-        const res = await fetch("/api/admin/users");
+        const res = await fetch(`${import.meta.env.BASE_URL}/api/admin/users`);
         if (res.ok) {
           const data = await res.json();
           setUsers(data.users || []);
@@ -89,7 +89,7 @@ function AdminPage() {
   const handleReindex = async () => {
     setReindexing(true);
     try {
-      const res = await fetch("/api/chatbot-init?force=true", { method: "POST" });
+      const res = await fetch(`${import.meta.env.BASE_URL}/api/chatbot-init?force=true`, { method: "POST" });
       const data = await res.json();
       if (data.success) {
         alert(`Re-index complete! ${data.message}`);
@@ -108,7 +108,7 @@ function AdminPage() {
     const newRole = currentRole === "admin" ? "client" : "admin";
     try {
       // Call the API endpoint directly since setUserRole is a server function
-      const response = await fetch("/api/admin/set-role", {
+      const response = await fetch(`${import.meta.env.BASE_URL}/api/admin/set-role`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, role: newRole }),

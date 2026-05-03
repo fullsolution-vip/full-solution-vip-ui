@@ -3,7 +3,7 @@
   "info": {
     "title": "Full Solution API",
     "version": "1.0.0",
-    "description": "API documentation for Full Solution chatbot and services"
+    "description": "API documentation for Full Solution chatbot, contact forms, and services"
   },
   "servers": [
     {
@@ -44,7 +44,139 @@
                   "properties": {
                     "message": { "type": "string" },
                     "sources": { "type": "array", "items": { "type": "string" } },
-                    "cached": { "type": "boolean" }
+                    "cached": { "type": "boolean" },
+                    "escalated": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contact": {
+      "post": {
+        "summary": "Submit contact form",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "subject", "message"],
+                "properties": {
+                  "name": { "type": "string", "example": "John Doe" },
+                  "company": { "type": "string", "example": "ACME Inc." },
+                  "email": { "type": "string", "format": "email", "example": "john@example.com" },
+                  "subject": { "type": "string", "example": "Product Inquiry" },
+                  "message": { "type": "string", "example": "I would like to know more about your products." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Form submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/wholesale": {
+      "post": {
+        "summary": "Submit wholesale application form",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "company", "message"],
+                "properties": {
+                  "name": { "type": "string", "example": "Jane Smith" },
+                  "company": { "type": "string", "example": "Beauty Salon" },
+                  "email": { "type": "string", "format": "email", "example": "jane@example.com" },
+                  "phone": { "type": "string", "example": "+1234567890" },
+                  "location": { "type": "string", "example": "New York" },
+                  "message": { "type": "string", "example": "Interested in wholesale pricing." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Application submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/leads": {
+      "post": {
+        "summary": "Capture leads (downloads, sample requests, applications)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["type", "name", "email"],
+                "properties": {
+                  "type": { "type": "string", "enum": ["application", "sample_request", "catalogue_download"] },
+                  "name": { "type": "string", "example": "John Doe" },
+                  "email": { "type": "string", "format": "email", "example": "john@example.com" },
+                  "company": { "type": "string", "example": "ACME Inc." },
+                  "message": { "type": "string", "example": "Additional information" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lead captured successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" }
                   }
                 }
               }
@@ -56,6 +188,14 @@
     "/api/chatbot-init": {
       "post": {
         "summary": "Force re-initialize knowledge base (re-chunk and embed)",
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "boolean" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Initialization result",
@@ -77,7 +217,7 @@
     },
     "/api/health": {
       "get": {
-        "summary": "Check system health (Supabase, Hugging Face, Redis)",
+        "summary": "Check system health (Supabase, Groq, Redis, Resend)",
         "responses": {
           "200": {
             "description": "Health status",
@@ -91,8 +231,9 @@
                       "type": "object",
                       "properties": {
                         "supabase": { "type": "string" },
-                        "huggingface": { "type": "string" },
-                        "redis": { "type": "string" }
+                        "groq": { "type": "string" },
+                        "redis": { "type": "string" },
+                        "resend": { "type": "string" }
                       }
                     }
                   }

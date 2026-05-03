@@ -76,7 +76,7 @@ export function SignupPage() {
 
       // Send welcome email via API
       try {
-        await fetch("/api/email/welcome", {
+        await fetch(`${import.meta.env.BASE_URL}/api/email/welcome`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

@@ -14,8 +14,9 @@ export const Route = createFileRoute("/api/health")({
             timestamp: new Date().toISOString(),
             services: {
               supabase: "unknown",
-              huggingface: "unknown",
+              groq: "unknown",
               redis: "unknown",
+              resend: "unknown",
             },
           };
 
@@ -29,13 +30,18 @@ export const Route = createFileRoute("/api/health")({
             logger.error("health-check", "Supabase connection failed", e);
           }
 
-          // Check Hugging Face
-          const hfKey = process.env.HUGGINGFACE_API_KEY;
-          health.services.huggingface = hfKey ? "configured" : "missing_key";
+          // Check Groq
+          const groqKey = process.env.GROQ_API_KEY;
+          const groqModel = process.env.GROQ_MODEL;
+          health.services.groq = (groqKey && groqModel) ? "configured" : "missing_config";
 
           // Check Redis
           const redisUrl = process.env.REDIS_URL || process.env.LANGCACHE_URL;
           health.services.redis = redisUrl ? "configured" : "not_configured";
+
+          // Check Resend
+          const resendKey = process.env.RESEND_API_KEY;
+          health.services.resend = resendKey ? "configured" : "missing_config";
 
           const allHealthy = Object.values(health.services).every(
             (s) => s === "ok" || s === "configured",

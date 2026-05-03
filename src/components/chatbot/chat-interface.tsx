@@ -22,7 +22,7 @@ export function ChatInterface() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    fetch("/api/chat", { method: "POST" })
+    fetch(`${import.meta.env.BASE_URL}/api/chat`, { method: "POST" })
       .then((res) => res.json())
       .then(({ sessionId }) => setSessionId(sessionId))
       .catch(console.error);
@@ -55,7 +55,7 @@ export function ChatInterface() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch(`${import.meta.env.BASE_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input, sessionId }),
